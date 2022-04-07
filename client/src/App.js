@@ -6,9 +6,16 @@ import WalletCard from "./components/Metamask/WalletCard";
 import WalletCardEthers from "./components/Metamask/WalletCardEthers";
 import Navbar from "./components/Navbar";
 
+
+
+
+
 function App() {
+
+
   return (
     <>
+    
     <Navbar/>
     <Routes>
       <Route path="/images" element={<Images/>}/>
