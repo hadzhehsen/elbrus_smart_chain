@@ -1,10 +1,11 @@
+/* eslint-disable no-useless-escape */
 /** ===================
  * REQUIRES AND CONFIGS
  * ====================
  */
 const fs = require('fs');
 
-const dir = process.env.PWD;
+const dir = __dirname;
 const width = 1000;
 const height = 1000;
 const rarity = [
@@ -33,6 +34,8 @@ const rarity = [
  *  FILESYSTEM FUNCTIONS
  *  ====================
  */
+
+// Cleans file name from .png extension || ONLY ACCEPTS PNG!!!
 const cleanName = (_str) => {
   let name = _str.slice(0, -4);
   rarity.forEach((item) => {
@@ -41,6 +44,7 @@ const cleanName = (_str) => {
   return name;
 };
 
+// Adds rarity to the NFT
 const addRarity = (_str) => {
   let itemRarity;
   rarity.forEach((item) => {
@@ -50,7 +54,7 @@ const addRarity = (_str) => {
   });
   return itemRarity;
 };
-
+// Writes elements into the config
 const getElements = (path) => fs
   .readdirSync(path)
   .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
@@ -81,7 +85,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 2,
     name: 'Body',
     location: `${dir}/Body`,
     elements: getElements(`${dir}/Body`),
@@ -95,7 +99,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 3,
     name: 'Eyes',
     location: `${dir}/Eyes`,
     elements: getElements(`${dir}/Eyes`),
@@ -109,7 +113,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 4,
     name: 'Head',
     location: `${dir}/Head`,
     elements: getElements(`${dir}/Head`),
@@ -123,7 +127,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 5,
     name: 'Headwear',
     location: `${dir}/Headwear`,
     elements: getElements(`${dir}/Headwear`),
@@ -137,7 +141,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 6,
     name: 'Mouth',
     location: `${dir}/Mouth`,
     elements: getElements(`${dir}/Mouth`),
@@ -151,7 +155,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 7,
     name: 'Nose',
     location: `${dir}/Nose`,
     elements: getElements(`${dir}/Nose`),
@@ -165,7 +169,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 8,
     name: 'Outfit',
     location: `${dir}/Outfit`,
     elements: getElements(`${dir}/Outfit`),
@@ -179,7 +183,7 @@ const layers = [
     },
   },
   {
-    id: 1,
+    id: 9,
     name: 'Sunglasses',
     location: `${dir}/Sunglasses`,
     elements: getElements(`${dir}/Sunglasses`),
@@ -194,4 +198,8 @@ const layers = [
   },
 ];
 
-console.log(layers);
+module.exports = {
+  layers,
+  width,
+  height,
+};
