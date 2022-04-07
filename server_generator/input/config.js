@@ -59,7 +59,7 @@ const getElements = (path) => fs
   .readdirSync(path)
   .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
   .map((img, index) => ({
-    id: index + img,
+    id: index + 1,
     name: cleanName(img),
     fileName: img,
     rarity: addRarity(img),
