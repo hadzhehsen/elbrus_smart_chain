@@ -9,9 +9,6 @@ import Connect from "./components/Connect";
 import Home from "./components/Home";
 
 
-
-
-
 function App() {
 
 
@@ -25,10 +22,8 @@ function App() {
       <Route path="/faces" element={<Faces/>}/>
       <Route path="/main" element={<Connect/>}/>
     </Routes>
-    
-    
     </>
   );
-};
+}
 
 export default App;

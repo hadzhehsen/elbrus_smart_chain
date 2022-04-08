@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import './index.module.css';
+import MetamaskModal from '../MetamaskModal';
 
 const WalletCard = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -52,10 +53,11 @@ const WalletCard = () => {
     window.location.reload();
   };
 
+  // console.log(window);
   // listen for account changes
-  window.ethereum.on('accountsChanged', accountChangedHandler);
+  window.ethereum?.on('accountsChanged', accountChangedHandler);
 
-  window.ethereum.on('chainChanged', chainChangedHandler);
+  window.ethereum?.on('chainChanged', chainChangedHandler);
 
   return (
     <div className='walletCard'>
@@ -67,7 +69,13 @@ const WalletCard = () => {
       <div className='balanceDisplay'>
         <h3>Balance: {userBalance}</h3>
       </div>
-      {errorMessage}
+      {errorMessage && (
+        <MetamaskModal
+          setError={setErrorMessage}
+          error={errorMessage}
+          status={true}
+        />
+      )}
     </div>
   );
 };
