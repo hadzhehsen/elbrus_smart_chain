@@ -1,6 +1,6 @@
 // https://docs.metamask.io/guide/ethereum-provider.html#using-the-provider
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './index.module.css';
 import MetamaskModal from '../MetamaskModal';
@@ -11,7 +11,16 @@ const WalletCard = () => {
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
+  // useEffect(() => {
+  //   if (window.ethereum._events.connect === false) {
+  //     setConnButtonText('Connect Wallet');
+  //   }
+  // }, []);
+
+  console.log('---pre---------', window.ethereum);
+
   const connectWalletHandler = () => {
+    // console.log(window.ethereum);
     if (window.ethereum && window.ethereum.isMetaMask) {
       console.log('MetaMask Here!');
 
@@ -21,6 +30,7 @@ const WalletCard = () => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
+          console.log(result[0], '<=================');
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -30,6 +40,8 @@ const WalletCard = () => {
       setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
+
+  console.log('---POST AUTH---------', window.ethereum._events.connect);
 
   // update account, will cause component re-render
   const accountChangedHandler = (newAccount) => {
@@ -60,9 +72,19 @@ const WalletCard = () => {
   window.ethereum?.on('chainChanged', chainChangedHandler);
 
   return (
+    // console.log(
+    //   window.ethereum.isConnected()
+    //   // Boolean(window.ethereum._events.connect),
+    //   // 'rettuuurn2å∑∑∑∑∑∑´´∑œ∑´œ™™™™™∑´ß',
+    // ),
     <div className='walletCard'>
       <h4> {'Connection to MetaMask using window.ethereum methods'} </h4>
-      <button onClick={connectWalletHandler}>{connButtonText}</button>
+      <button onClick={connectWalletHandler}>
+        {window.ethereum._events.connect === true
+          ? 'proverka ok'
+          : 'login pidor'}
+        {console.log(Boolean(window.ethereum._events.connect))}
+      </button>
       <div className='accountDisplay'>
         <h3>Address: {defaultAccount}</h3>
       </div>
