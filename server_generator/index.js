@@ -28,7 +28,6 @@ const ctx = canvas.getContext('2d'); // - our context to basically draw shit lol
 // VARIABLES
 let metadataList = [];
 let attributesList = [];
-let hashList = [];
 let dnaList = [];
 
 const signImage = (_sig) => {
@@ -42,7 +41,7 @@ const signImage = (_sig) => {
 const addMetadata = (_dna, _edition) => {
   let dataTime = Date.now();
   let tempMetadata = {
-    dna: _dna,
+    dna: _dna.join(''),
     edition: _edition,
     date: dataTime,
     attributes: attributesList,
@@ -88,10 +87,9 @@ const drawElement = (_element) => {
   addAttributes(_element);
 };
 
-const constructLayerToDna = (_dna, _layers) => {
-  let DnaSegment = _dna.toString().match(/.{1,2}/g);
-  let mappedDnaToLayers = _layers.map((layer) => {
-    let selectedElement = layer.elements[parseInt(DnaSegment, 10) % layer.elements.length];
+const constructLayerToDna = (_dna = [], _layers = []) => {
+  let mappedDnaToLayers = _layers.map((layer, i) => {
+    let selectedElement = layer.elements[_dna[i]];
     return {
       location: layer.location,
       elements: layer.elements,
@@ -103,18 +101,19 @@ const constructLayerToDna = (_dna, _layers) => {
   return mappedDnaToLayers;
 };
 
-const isDnaUnique = (_DnaList = [], _dna) => {
-  let foundDna = _DnaList.find((item) => item === _dna);
+const isDnaUnique = (_DnaList = [], _dna = []) => {
+  let foundDna = _DnaList.find((item) => item.join('') === _dna.join(''));
   // eslint-disable-next-line no-unneeded-ternary
   let validation = foundDna === undefined ? true : false; // ne rugaites, ono rabotaet
   return validation;
 };
 
-const createDna = (_length) => {
-  let randNumber = Math.floor(Number(`1e${_length}`) + Math.random() * Number(`9e${_length}`));
-  // umno navernoe, such mathematics, so wow!
-  // - e17 is a number of zeroes after the initial integer,
-  // - we neeed to have number of integer that is equeal to the number of layer dirs x 2
+const createDna = (_layers) => {
+  let randNumber = [];
+  _layers.forEach((layer) => {
+    let num = Math.floor(Math.random() * layer.elements.length);
+    randNumber.push(num);
+  });
   return randNumber;
 };
 
@@ -129,7 +128,7 @@ const startCreating = async () => {
   writeMetaData('');
   let editionCount = 1;
   while (editionCount <= editionSize) {
-    let newDna = createDna(layers.length * 2 - 1);
+    let newDna = createDna(layers);
     if (isDnaUnique(dnaList, newDna)) {
       let results = constructLayerToDna(newDna, layers);
       let loadedElements = []; // promise array
@@ -144,7 +143,7 @@ const startCreating = async () => {
         signImage(`#${editionCount}`);
         saveImage(editionCount);
         addMetadata(newDna, editionCount);
-        console.log('Created edition:', editionCount, 'with DNA', newDna);
+        console.log('Created edition:', editionCount, 'with DNA', newDna.join(''));
       });
       dnaList.push(newDna);
       // VIGLYAFIT STREMNO, ZATO RABOCHEE!
