@@ -71,8 +71,6 @@ const getElements = (path) => fs
  */
 const layers = [
   {
-    id: 1,
-    name: 'Background',
     location: `${dir}/Background`,
     elements: getElements(`${dir}/Background`),
     position: {
@@ -85,8 +83,6 @@ const layers = [
     },
   },
   {
-    id: 2,
-    name: 'Body',
     location: `${dir}/Body`,
     elements: getElements(`${dir}/Body`),
     position: {
@@ -99,8 +95,6 @@ const layers = [
     },
   },
   {
-    id: 3,
-    name: 'Eyes',
     location: `${dir}/Eyes`,
     elements: getElements(`${dir}/Eyes`),
     position: {
@@ -113,8 +107,6 @@ const layers = [
     },
   },
   {
-    id: 4,
-    name: 'Head',
     location: `${dir}/Head`,
     elements: getElements(`${dir}/Head`),
     position: {
@@ -127,8 +119,6 @@ const layers = [
     },
   },
   {
-    id: 5,
-    name: 'Headwear',
     location: `${dir}/Headwear`,
     elements: getElements(`${dir}/Headwear`),
     position: {
@@ -141,8 +131,6 @@ const layers = [
     },
   },
   {
-    id: 6,
-    name: 'Mouth',
     location: `${dir}/Mouth`,
     elements: getElements(`${dir}/Mouth`),
     position: {
@@ -155,8 +143,6 @@ const layers = [
     },
   },
   {
-    id: 7,
-    name: 'Nose',
     location: `${dir}/Nose`,
     elements: getElements(`${dir}/Nose`),
     position: {
@@ -169,8 +155,6 @@ const layers = [
     },
   },
   {
-    id: 8,
-    name: 'Outfit',
     location: `${dir}/Outfit`,
     elements: getElements(`${dir}/Outfit`),
     position: {
@@ -183,8 +167,6 @@ const layers = [
     },
   },
   {
-    id: 9,
-    name: 'Sunglasses',
     location: `${dir}/Sunglasses`,
     elements: getElements(`${dir}/Sunglasses`),
     position: {
