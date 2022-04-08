@@ -4,8 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './index.module.css';
 import MetamaskModal from '../MetamaskModal';
+import axios from 'axios';
 
 const WalletCard = () => {
+  axios.defaults.withCredentials = true;
+  console.log(axios.defaults, 'axiooosssss');
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -30,7 +33,7 @@ const WalletCard = () => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
-          console.log(result[0], '<=================');
+          axios.post('http://localhost:3002/wallet', result);
         })
         .catch((error) => {
           setErrorMessage(error.message);
