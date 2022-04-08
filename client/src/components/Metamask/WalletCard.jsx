@@ -14,13 +14,13 @@ const WalletCard = () => {
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
-  // useEffect(() => {
-  //   if (window.ethereum._events.connect === false) {
-  //     setConnButtonText('Connect Wallet');
-  //   }
-  // }, []);
+  useEffect(() => {
+    axios('http://localhost:3002/isauth').then((data) =>
+      console.log(data.data),
+    );
+  }, []);
 
-  console.log('---pre---------', window.ethereum);
+  // console.log('---pre---------', window.ethereum);
 
   const connectWalletHandler = () => {
     // console.log(window.ethereum);
@@ -33,7 +33,17 @@ const WalletCard = () => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
-          axios.post('http://localhost:3002/wallet', result);
+          console.log(result);
+          axios.post(
+            'http://localhost:3002/wallet',
+            { result: result[0] },
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            },
+          );
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -43,8 +53,6 @@ const WalletCard = () => {
       setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
-
-  console.log('---POST AUTH---------', window.ethereum._events.connect);
 
   // update account, will cause component re-render
   const accountChangedHandler = (newAccount) => {
@@ -68,25 +76,16 @@ const WalletCard = () => {
     window.location.reload();
   };
 
-  // console.log(window);
   // listen for account changes
   window.ethereum?.on('accountsChanged', accountChangedHandler);
 
   window.ethereum?.on('chainChanged', chainChangedHandler);
 
   return (
-    // console.log(
-    //   window.ethereum.isConnected()
-    //   // Boolean(window.ethereum._events.connect),
-    //   // 'rettuuurn2å∑∑∑∑∑∑´´∑œ∑´œ™™™™™∑´ß',
-    // ),
     <div className='walletCard'>
       <h4> {'Connection to MetaMask using window.ethereum methods'} </h4>
       <button onClick={connectWalletHandler}>
-        {window.ethereum._events.connect === true
-          ? 'proverka ok'
-          : 'login pidor'}
-        {console.log(Boolean(window.ethereum._events.connect))}
+        {window.ethereum._events.connect === true ? 'true' : 'ne true'}
       </button>
       <div className='accountDisplay'>
         <h3>Address: {defaultAccount}</h3>

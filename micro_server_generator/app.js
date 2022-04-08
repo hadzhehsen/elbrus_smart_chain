@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const cors = require('cors');
+const mw = require('./middlewares/checkAuth');
 require('dotenv').config();
 
 const app = express();
@@ -24,12 +25,12 @@ app.use(
 
 app.use(
   session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge: 60 * 60 * 1000, httpOnly: true },
     name: 'userCookie',
+    secret: process.env.SECRET,
+    saveUninitialized: false,
+    resave: false,
     store: new FileStore(),
+    cookie: { secure: false, maxAge: 60 * 60 * 1000 },
   }),
 );
 
@@ -45,9 +46,13 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/wallet', async (req, res) => {
-  const walletString = await req.body.join('');
+  const walletString = await req.body.result;
   req.session.wallet = walletString;
-  console.log(req.session);
+  res.end();
+});
+
+app.get('/isauth', mw.checkAuth, async (req, res) => {
+  req.session ? res.json(req.session.wallet) : res.status(401);
 });
 
 app.listen(PORT, () => console.log(`listening ${PORT}...`));

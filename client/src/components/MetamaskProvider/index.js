@@ -8,9 +8,7 @@ function MetamaskProvider({ children }) {
     error: networkError,
     activate: activateNetwork,
   } = useWeb3React();
-
   const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
     injected
       .isAuthorized()
