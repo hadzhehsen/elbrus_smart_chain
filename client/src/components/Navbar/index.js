@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Main', 'Images', 'Faces', 'Blog'];
+const pages = ['Main', 'Images', 'Faces','homeNFT', 'create-nft', 'my-nfts', 'dashboard'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
@@ -48,7 +48,7 @@ const Navbar = () => {
 
 
   return (
-    <AppBar position="static" >
+    <AppBar position="static" style={{backgroundColor: 'black'}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters>
           <Typography
