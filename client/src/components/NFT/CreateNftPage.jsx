@@ -1,21 +1,25 @@
 import { useState } from 'react'
 import { ethers } from 'ethers'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import Web3Modal from 'web3modal'
+import {useNavigate} from 'react-router-dom';
+import {
+    marketplaceAddress
+} from '../../config'
+// import NFTMarketplace from '../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
+import NFTMarketplace from '../../NFTMarketplace.json'
+
+
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
-import {
-    marketplaceAddress
-} from '../../../config'
 
-import NFTMarketplace from '../../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
-
-export default function CreateItem() {
+export default function CreateNFT() {
     const [fileUrl, setFileUrl] = useState(null)
     const [formInput, updateFormInput] = useState({ price: '', name: '', description: '' })
-    const router = useRouter()
+    const navigate = useNavigate();
+    // const router = useRouter()
 
     async function onChange(e) {
         const file = e.target.files[0]
@@ -28,6 +32,7 @@ export default function CreateItem() {
             )
             const url = `https://ipfs.infura.io/ipfs/${added.path}`
             setFileUrl(url)
+
         } catch (error) {
             console.log('Error uploading file: ', error)
         }
@@ -58,13 +63,16 @@ export default function CreateItem() {
 
         /* next, create the item */
         const price = ethers.utils.parseUnits(formInput.price, 'ether')
+        // console.log(price)
         let contract = new ethers.Contract(marketplaceAddress, NFTMarketplace.abi, signer)
+        console.log(contract);
         let listingPrice = await contract.getListingPrice()
+        console.log(listingPrice)
         listingPrice = listingPrice.toString()
         let transaction = await contract.createToken(url, price, { value: listingPrice })
         await transaction.wait()
 
-        router.push('/')
+        navigate('/')
     }
 
     return (

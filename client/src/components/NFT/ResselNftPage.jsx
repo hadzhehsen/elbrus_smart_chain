@@ -1,30 +1,37 @@
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import axios from 'axios'
 import Web3Modal from 'web3modal'
+import {useSearchParams} from "react-router-dom";
+
 
 import {
     marketplaceAddress
-} from '../../../config'
+} from '../../config'
 
-import NFTMarketplace from '../../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
+import NFTMarketplace from '../../NFTMarketplace.json'
 
 export default function ResellNFT() {
     const [formInput, updateFormInput] = useState({ price: '', image: '' })
-    const router = useRouter()
-    const { id, tokenURI } = router.query
+    // const router = useRouter()
+    // const { id, tokenURI } = router.query
+
+    // let [searchParams, setSearchParams] = useSearchParams();
+
+    // console.log(searchParams)
+
     const { image, price } = formInput
 
-    useEffect(() => {
-        fetchNFT()
-    }, [id])
+    // useEffect(() => {
+    //     fetchNFT()
+    // }, [id])
 
-    async function fetchNFT() {
-        if (!tokenURI) return
-        const meta = await axios.get(tokenURI)
-        updateFormInput(state => ({ ...state, image: meta.data.image }))
-    }
+    // async function fetchNFT() {
+    //     if (!tokenURI) return
+    //     const meta = await axios.get(tokenURI)
+    //     updateFormInput(state => ({ ...state, image: meta.data.image }))
+    // }
 
     async function listNFTForSale() {
         if (!price) return
@@ -38,10 +45,10 @@ export default function ResellNFT() {
         let listingPrice = await contract.getListingPrice()
 
         listingPrice = listingPrice.toString()
-        let transaction = await contract.resellToken(id, priceFormatted, { value: listingPrice })
-        await transaction.wait()
+        // let transaction = await contract.resellToken(id, priceFormatted, { value: listingPrice })
+        // await transaction.wait()
 
-        router.push('/')
+        // router.push('/')
     }
 
     return (

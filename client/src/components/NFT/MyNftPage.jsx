@@ -2,18 +2,20 @@ import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from 'web3modal'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
+import {useNavigate} from "react-router-dom";
 
 import {
     marketplaceAddress
-} from '../../../config'
+} from '../../config'
 
-import NFTMarketplace from '../../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
+import NFTMarketplace from '../../NFTMarketplace.json'
 
-export default function MyAssets() {
+export default function MyNftPage() {
     const [nfts, setNfts] = useState([])
     const [loadingState, setLoadingState] = useState('not-loaded')
-    const router = useRouter()
+    const navigate = useNavigate();
+    // const router = useRouter()
     useEffect(() => {
         loadNFTs()
     }, [])
@@ -48,7 +50,7 @@ export default function MyAssets() {
     }
     function listNFT(nft) {
         console.log('nft:', nft)
-        router.push(`/resell-nft?id=${nft.tokenId}&tokenURI=${nft.tokenURI}`)
+        navigate(`/resell-nft?id=${nft.tokenId}&tokenURI=${nft.tokenURI}`)
     }
     if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No NFTs owned</h1>)
     return (

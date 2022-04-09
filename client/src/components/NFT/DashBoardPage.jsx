@@ -5,11 +5,11 @@ import Web3Modal from 'web3modal'
 
 import {
     marketplaceAddress
-} from '../../../config'
+} from '../../config'
 
-import NFTMarketplace from '../../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
+import NFTMarketplace from '../../NFTMarketplace.json'
 
-export default function CreatorDashboard() {
+export default function DashBoardPage() {
     const [nfts, setNfts] = useState([])
     const [loadingState, setLoadingState] = useState('not-loaded')
     useEffect(() => {
