@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import './index.module.css';
+import MetamaskModal from '../MetamaskModal';
 
 const WalletCardEthers = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -25,7 +26,7 @@ const WalletCardEthers = () => {
           setErrorMessage(error.message);
         });
     } else if (!window.ethereum) {
-      console.log('Need to install MetaMask');
+      // console.log('Need to install MetaMask');
       setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
@@ -48,7 +49,13 @@ const WalletCardEthers = () => {
       <div className='balanceDisplay'>
         <h3>Balance: {userBalance}</h3>
       </div>
-      {errorMessage}
+      {errorMessage && (
+        <MetamaskModal
+          setError={setErrorMessage}
+          error={errorMessage}
+          status={true}
+        />
+      )}
     </div>
   );
 };
