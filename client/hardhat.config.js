@@ -21,7 +21,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 module.exports = {
   networks: {
     hardhat: {
-      chainId: 1337
+      chainId: 1337 // в метамаске указываем CHAINID
     },
     // mumbai: {
     //   url: `https://polygon-mumbai.infura.io/v3/${projectId}`,

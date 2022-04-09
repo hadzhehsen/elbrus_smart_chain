@@ -128,3 +128,11 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#Hardhat files
+cache
+artifacts
+
+.secret
+.infuraid
+config.js
