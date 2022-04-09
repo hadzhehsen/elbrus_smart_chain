@@ -1,3 +1,4 @@
+const fse = require('fs-extra');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -17,19 +18,24 @@ app.use(
     credentials: true,
   }),
 );
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads');
+    // console.log(file);
+    console.log(file.originalname);
+    cb(null, './user_uploads');
   },
   filename: (req, file, cb) => {
+    // console.log(file);
     cb(null, file.originalname);
   },
 });
 
-const upload = multer({ storage, dest: path.join(__dirname, 'uploads/') });
+const upload = multer({ storage, dest: path.join(__dirname, 'user_uploads/') });
 
 app.post('/upload', upload.array('layer1', 100), (req, res) => {
-  console.log(req.files);
+  // console.log(req.files);
+  // const { wallet } = req.session;
   res.end();
 });
 
