@@ -1,12 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import Faces from "./components/Faces";
 import Images from "./components/Images";
-import WalletCard from "./components/Metamask/WalletCard";
-import WalletCardEthers from "./components/Metamask/WalletCardEthers";
-import Navbar from "./components/Navbar";
-import CustomizedSwitches from "./components/Switch/switch";
 import Connect from "./components/Connect";
 import Home from "./components/Home";
+import Preloader2 from "./components/Preloader2";
+// import Preloader from "./components/Preloader";
 
 
 function App() {
@@ -14,8 +12,7 @@ function App() {
 
   return (
     <>
-    <CustomizedSwitches />
-    <Navbar/>
+    <Preloader2 />
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path="/images" element={<Images/>}/>
