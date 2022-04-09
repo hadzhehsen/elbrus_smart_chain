@@ -17,7 +17,6 @@ function App() {
     <>
     {/*<Navbar/>*/}
     {/*  <HeaderPage/>*/}
-
     <Routes>
       <Route path="/" element={<HeaderPage/>}/>
       <Route path="/create-nft" element={<CreateNFT/>}/>
