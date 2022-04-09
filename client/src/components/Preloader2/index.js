@@ -12,7 +12,7 @@ const defaultOptions = {
   }
 };
 
-export default function Preloader2 ({navbar}) {
+export default function Preloader2 () {
 
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(undefined)
