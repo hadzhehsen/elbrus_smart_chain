@@ -1,17 +1,29 @@
 // https://docs.metamask.io/guide/ethereum-provider.html#using-the-provider
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './index.module.css';
 import MetamaskModal from '../MetamaskModal';
+import axios from 'axios';
 
 const WalletCard = () => {
+  axios.defaults.withCredentials = true;
+  console.log(axios.defaults, 'axiooosssss');
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
+  useEffect(() => {
+    axios('http://localhost:3002/isauth').then((data) =>
+      console.log(data.data),
+    );
+  }, []);
+
+  // console.log('---pre---------', window.ethereum);
+
   const connectWalletHandler = () => {
+    // console.log(window.ethereum);
     if (window.ethereum && window.ethereum.isMetaMask) {
       console.log('MetaMask Here!');
 
@@ -21,6 +33,17 @@ const WalletCard = () => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
+          console.log(result);
+          axios.post(
+            'http://localhost:3002/wallet',
+            { result: result[0] },
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            },
+          );
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -53,7 +76,6 @@ const WalletCard = () => {
     window.location.reload();
   };
 
-  // console.log(window);
   // listen for account changes
   window.ethereum?.on('accountsChanged', accountChangedHandler);
 
@@ -62,7 +84,9 @@ const WalletCard = () => {
   return (
     <div className='walletCard'>
       <h4> {'Connection to MetaMask using window.ethereum methods'} </h4>
-      <button onClick={connectWalletHandler}>{connButtonText}</button>
+      <button onClick={connectWalletHandler}>
+        {window.ethereum._events.connect === true ? 'true' : 'ne true'}
+      </button>
       <div className='accountDisplay'>
         <h3>Address: {defaultAccount}</h3>
       </div>

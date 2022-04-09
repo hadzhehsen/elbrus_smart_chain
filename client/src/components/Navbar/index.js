@@ -13,22 +13,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { FormControlLabel, Switch } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import { ColorModeContext } from '../context/themeContext'
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import CustomizedSwitches from '../Switch/switch'
 
-const pages = ['Main', 'Images', 'Faces', 'Blog'];
+const pages = ['Main', 'Images', 'Faces','homeNFT', 'create-nft', 'my-nfts', 'dashboard'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  // const theme = useTheme();
-  // const colorMode = React.useContext(ColorModeContext);
-  const navigate = useNavigate()// const theme = useContext()
+  const navigate = useNavigate()
 
 
   const handleOpenNavMenu = (event) => {
@@ -52,13 +44,11 @@ const Navbar = () => {
   const homeNav = () => {
     navigate('/')
   }
-  const theme = useTheme();
-  const colorMode = React.useContext(ColorModeContext);
-  
+
 
 
   return (
-    <AppBar position="static" >
+    <AppBar position="static" style={{backgroundColor: 'black'}}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters>
           <Typography
@@ -70,7 +60,7 @@ const Navbar = () => {
             <AcUnitIcon onClick={homeNav} style={{ fontSize: '150px' }} />
           </Typography>
 
-          <Box sx={{  flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -104,7 +94,7 @@ const Navbar = () => {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-                  
+
             </Menu>
           </Box>
           <Typography
@@ -127,7 +117,7 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-        
+
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
