@@ -28,11 +28,11 @@ function App() {
       <Route path="/images" element={<Images/>}/>
       <Route path="/faces" element={<Faces/>}/>
       <Route path="/main" element={<Connect/>}/>
-      <Route path="/header" element={<HeaderPage/>}/>
+      <Route path="/homeNFT" element={<HomePage/>}/>
       <Route path="/create-nft" element={<CreateNFT/>}/>
       <Route path="/my-nfts" element={<MyNftPage/>}/>
       <Route path="/dashboard" element={<DashBoardPage/>}/>
-      {/*<Route path="/resell-nft" element={<ResellNFT/>}/>*/}
+      <Route path="/resell-nft" element={<ResellNFT/>}/>
     </Routes>
     </>
   );
