@@ -11,10 +11,12 @@ const PORT = 3005;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads');
@@ -24,7 +26,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage, dest: path.join(__dirname, 'uploads/')});
+const upload = multer({ storage, dest: path.join(__dirname, 'uploads/') });
 
 app.post('/upload', upload.array('layer1', 100), (req, res) => {
   console.log(req.files);

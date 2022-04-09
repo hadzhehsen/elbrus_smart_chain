@@ -1,5 +1,6 @@
-export default function initState(){
+export default function initState() {
   return {
     fotos: [],
-  }
+    users: [],
+  };
 }
