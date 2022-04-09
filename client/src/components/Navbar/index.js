@@ -20,7 +20,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import CustomizedSwitches from '../Switch/switch'
 
-const pages = ['Main', 'Images', 'Faces', 'Blog'];
+const pages = ['Main', 'Images', 'Faces', 'Blog', 'create-nft', 'my-nfts', 'dashboard', 'header'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
@@ -54,7 +54,7 @@ const Navbar = () => {
   }
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
-  
+
 
 
   return (
@@ -104,7 +104,7 @@ const Navbar = () => {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-                  
+
             </Menu>
           </Box>
           <Typography
@@ -127,7 +127,7 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-        
+
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
