@@ -60,6 +60,8 @@ export default function HomePage() {
         await transaction.wait()
         loadNFTs()
     }
+
+    console.log(loadingState);
     if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
     return (
         <div className="flex justify-center">

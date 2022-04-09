@@ -72,7 +72,7 @@ export default function CreateNFT() {
         let transaction = await contract.createToken(url, price, { value: listingPrice })
         await transaction.wait()
 
-        navigate('/')
+        navigate('/homeNFT')
     }
 
     return (

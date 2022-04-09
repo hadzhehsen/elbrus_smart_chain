@@ -20,7 +20,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import CustomizedSwitches from '../Switch/switch'
 
-const pages = ['Main', 'Images', 'Faces', 'Blog', 'create-nft', 'my-nfts', 'dashboard', 'header'];
+const pages = ['Main', 'Images', 'Faces', 'Blog','homeNFT', 'create-nft', 'my-nfts', 'dashboard'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
