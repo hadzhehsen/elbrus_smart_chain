@@ -13,14 +13,12 @@ export default function Images() {
 
   const subHandler = (e) => {
     e.preventDefault()
-    console.log(form);
     let formData = new FormData()
     for (let i = 0; i < form.length; i++) {
       formData.append(`layer1`, form[i])
     }
-    console.log(formData.getAll('layer1'));
     dispatch(asyncAddPhoto(formData))
-
+    setForm(null)
   }
 
 
@@ -32,7 +30,6 @@ export default function Images() {
         <Form.Label >Нажмите чтобы отправить</Form.Label>
         <Form.Control type="submit" onClick={subHandler} />
       </Form.Group>
-
     </>
   )
 }
