@@ -33,22 +33,20 @@ const Navbar = () => {
 
 
   const navigateHandler = (e) => {
-    navigate(`/${e.target.name}`)
-  }
+    navigate(`/${e.target.name}`);
+  };
   const homeNav = () => {
-    navigate('/')
-  }
-
-
+    navigate('/');
+  };
 
   return (
-    <AppBar position="static" style={{backgroundColor: 'black'}}>
-      <Container maxWidth="xl" >
+    <AppBar position='static' style={{ backgroundColor: 'black' }}>
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
+            component='div'
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
             <AcUnitIcon onClick={homeNav} style={{ fontSize: '100px' }} />
@@ -56,17 +54,17 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleCloseNavMenu}
-              color="inherit"
+              color='inherit'
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -85,16 +83,15 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign='center'>{page}</Typography>
                 </MenuItem>
               ))}
-
             </Menu>
           </Box>
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
+            component='div'
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             LOGO
@@ -114,7 +111,6 @@ const Navbar = () => {
         </Toolbar>
       </Container>
     </AppBar>
-
   );
 };
 export default Navbar;
