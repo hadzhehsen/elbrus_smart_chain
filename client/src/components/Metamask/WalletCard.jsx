@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import './index.module.css';
+import style from './index.module.css';
 import MetamaskModal from '../MetamaskModal';
 import axios from 'axios';
+import { Button } from 'react-bootstrap'
 
 const WalletCard = () => {
   axios.defaults.withCredentials = true;
@@ -82,17 +83,17 @@ const WalletCard = () => {
   window.ethereum?.on('chainChanged', chainChangedHandler);
 
   return (
-    <div className='walletCard'>
-      <h4> {'Connection to MetaMask using window.ethereum methods'} </h4>
-      <button onClick={connectWalletHandler}>
-        {window.ethereum._events.connect === true ? 'true' : 'ne true'}
-      </button>
+    <div className={style.walletCard}>
+      <h4> {'Connect your MetaMask'} </h4>
       <div className='accountDisplay'>
         <h3>Address: {defaultAccount}</h3>
       </div>
       <div className='balanceDisplay'>
         <h3>Balance: {userBalance}</h3>
       </div>
+      <Button onClick={connectWalletHandler} variant='light'>
+        {window.ethereum?._events.connect === true ? 'Connect' : 'Disconnect'} 
+      </Button>
       {errorMessage && (
         <MetamaskModal
           setError={setErrorMessage}
