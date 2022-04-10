@@ -1,8 +1,7 @@
 .div {
-  background-color:white;
-  color: black;
-   display: flex; 
-   flex-direction:row; 
-   justify-content: space-around;
-   border: 3px solid skyblue;
+  color: white;
+  display: flex; 
+  flex-direction:row; 
+  justify-content: space-around;
+  
 }
