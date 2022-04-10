@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Lottie from 'react-lottie';
 import Navbar from "../Navbar";
 import Particle from "../Particles";
 import * as location from './102030-earth-love-earth-day.json';
 
 const defaultOptions = {
-  loop: true,
+  loop: false,
   autoplay: true, 
   animationData: location.default,
   rendererSettings: {
@@ -27,20 +27,19 @@ export default function Preloader2 () {
       .then((json) => {
         setData(json)
         setLoading(true)
-
-        setTimeout(() => {
-          setCompleted(true)
-        }, 1500);
+        setCompleted(true)
       });
-    }, 2000);
+    }, 3000);
   }, [])
 
   return (
     <>
     <Particle/>
     {!completed ? (<Lottie options={defaultOptions}
+              
               height={400}
               width={400}/>)
+              
     :
     (<Navbar/>
     )}

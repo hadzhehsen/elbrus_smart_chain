@@ -24,7 +24,7 @@ export default function Images() {
 
   return (
     <>
-      <Form.Group controlId="formFile" className="p-3" >
+      <Form.Group controlId="formFile" className="col-md-5 mx-auto" >
         <Form.Label>Голова</Form.Label>
         <Form.Control type="file" name='layer1' multiple onChange={formHandler} />
         <Form.Label >Нажмите чтобы отправить</Form.Label>
