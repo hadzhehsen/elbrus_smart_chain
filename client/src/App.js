@@ -11,6 +11,7 @@ import DashBoardPage from "./components/NFT/DashBoardPage";
 import HeaderPage from "./components/NFT/UI/header/HeaderPage";
 import ResellNFT from "./components/NFT/ResselNftPage";
 import './App.css'
+import Particle from './components/Particles';
 
 
 function App() {
@@ -19,20 +20,21 @@ function App() {
 
   return (
     <>
-    <div className='App'>
-    <Preloader2 />
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path="/images" element={<Images/>}/>
-      <Route path="/faces" element={<Faces/>}/>
-      <Route path="/connect" element={<Connect/>}/>
-      <Route path="/homeNFT" element={<HomePage/>}/>
-      <Route path="/create-nft" element={<CreateNFT/>}/>
-      <Route path="/my-nfts" element={<MyNftPage/>}/>
-      <Route path="/dashboard" element={<DashBoardPage/>}/>
-      <Route path="/resell-nft" element={<ResellNFT/>}/>
-    </Routes>
-    </div>
+      <div className='App'>
+        <Particle />
+        <Preloader2 />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path="/images" element={<Images />} />
+          <Route path="/faces" element={<Faces />} />
+          <Route path="/connect" element={<Connect />} />
+          <Route path="/homeNFT" element={<HomePage />} />
+          <Route path="/create-nft" element={<CreateNFT />} />
+          <Route path="/my-nfts" element={<MyNftPage />} />
+          <Route path="/dashboard" element={<DashBoardPage />} />
+          <Route path="/resell-nft" element={<ResellNFT />} />
+        </Routes>
+      </div>
     </>
   );
 };
