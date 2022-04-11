@@ -23,7 +23,7 @@ require('dotenv').config();
 
 const app = express();
 
-const PORT = process.env.PORT ?? 3002;
+const PORT = process.env.PORT ?? 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -81,8 +81,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, dest: path.join(__dirname, 'uploads/') });
 
 app.post('/upload', upload.single('layer1'), async (req, res) => {
-  console.log(req.file);
-  if (req.file.filename !== 'layers.zip') res.status(403).end();
+  console.log('=>>>>>>>>>>',req.file);
+  // if (req.file.filename !== 'layers.zip') res.status(403).end();
   async function extractor() {
     try {
       await extract('./uploads/layers.zip', { dir: `${process.env.PWD}/layers` });

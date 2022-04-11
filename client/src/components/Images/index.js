@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { asyncAddPhoto } from '../../redux/thunk/addFoto.thunk'
+import axios from 'axios'
 
 export default function Images() {
   const [form, setForm] = useState(null)
@@ -11,7 +12,7 @@ export default function Images() {
     setForm(e.target.files)
   }
 
-  const subHandler = (e) => {
+  const subHandler = async (e) => {
     e.preventDefault()
     let formData = new FormData()
     for (let i = 0; i < form.length; i++) {
