@@ -1,0 +1,47 @@
+{
+  "dna": "4546399e8a65ced68474d8c03fc5fa1a53e27d79",
+  "name": "#5",
+  "description": "This is the description of your NFT project, remember to replace this",
+  "image": "https://elbrussmartchain/nft/5.png",
+  "edition": 5,
+  "date": 1649691247843,
+  "attributes": [
+    {
+      "trait_type": "layer1",
+      "value": "Layer1_common_background_aqua"
+    },
+    {
+      "trait_type": "layer2",
+      "value": "Layer2_epic_body_zombie"
+    },
+    {
+      "trait_type": "layer3",
+      "value": "Layer3_rare_eyes_chill"
+    },
+    {
+      "trait_type": "layer4",
+      "value": "Layer4_rare_head_alien"
+    },
+    {
+      "trait_type": "layer5",
+      "value": "Layer5_epic_headwear_bowler"
+    },
+    {
+      "trait_type": "layer6",
+      "value": "Layer6_rare_mouth_full_beard"
+    },
+    {
+      "trait_type": "layer7",
+      "value": "Layer7_common_"
+    },
+    {
+      "trait_type": "layer8",
+      "value": "Layer8_legendary_outfit_shirt_with_holes"
+    },
+    {
+      "trait_type": "layer9",
+      "value": "Layer9_common_sunglasses_aviator"
+    }
+  ],
+  "compiler": "HashLips Art Engine"
+}

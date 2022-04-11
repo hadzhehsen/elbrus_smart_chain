@@ -1,0 +1,472 @@
+[
+  {
+    "dna": "8b887e73a61fd07d2400e435c2e399d8fcf600ad",
+    "name": "#1",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/1.png",
+    "edition": 1,
+    "date": 1649691246119,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_forest"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_rare_body_alien"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_epic_eyes_angry"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_legendary_head_gold"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_rare_headwear_blue_bandana"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_lips"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_rare_outfit_lumberjack"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_legendary_sunglasses_thug_sunglasses"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "d1da95dc3452e17b897cee0462c39e4a4078ad9e",
+    "name": "#2",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/2.png",
+    "edition": 2,
+    "date": 1649691246516,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_aqua"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_epic_body_zombie"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_rare_eyes_chill"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_rare_headwear_pink_punk"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_rare_mouth_full_beard"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_common_outfit_pink_hoodie"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_common_sunglasses_aviator"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "6af858549f0882fb1b77d5a27b801d48f14d0a93",
+    "name": "#3",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/3.png",
+    "edition": 3,
+    "date": 1649691246936,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_aqua"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_epic_body_zombie"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_common_eyes_shame"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_rare_headwear_pink_punk"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_happy"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_rare_outfit_blue_jacket"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_epic_sunglasses_cateyes"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "d5e3e38e06f9936822e45a43061cfe07c0e0da0c",
+    "name": "#4",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/4.png",
+    "edition": 4,
+    "date": 1649691247455,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_forest"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_epic_body_zombie"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_common_eyes_shame"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_common_headwear_red_bandana"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_legendary_mouth_moustache"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_epic_outfit_red_jacket"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_common_sunglasses_empty"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "4546399e8a65ced68474d8c03fc5fa1a53e27d79",
+    "name": "#5",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/5.png",
+    "edition": 5,
+    "date": 1649691247843,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_aqua"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_epic_body_zombie"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_rare_eyes_chill"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_rare_head_alien"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_epic_headwear_bowler"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_rare_mouth_full_beard"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_legendary_outfit_shirt_with_holes"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_common_sunglasses_aviator"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "8183f8012b2303a4eee6d1df4a334bfea186a919",
+    "name": "#6",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/6.png",
+    "edition": 6,
+    "date": 1649691248313,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_rare_background_mountain"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_rare_body_alien"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_epic_eyes_angry"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_epic_headwear_bowler"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_lips"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_rare_outfit_tanktop"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_common_sunglasses_empty"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "4b238a867ca1a6e375a85afd51b8e3804e6c1a17",
+    "name": "#7",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/7.png",
+    "edition": 7,
+    "date": 1649691248680,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_legendary_background_galaxy"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_common_body_normal"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_common_eyes_focus"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_epic_head_zombie"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_epic_headwear_sailor"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_lips"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_common_outfit_pink_hoodie"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_common_sunglasses_aviator"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "2bed7c88bdfef76c4f98bd14472111418190c8e0",
+    "name": "#8",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/8.png",
+    "edition": 8,
+    "date": 1649691249092,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_aqua"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_epic_body_zombie"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_epic_eyes_angry"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_common_headwear_empty"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_surprise"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_common_outfit_hoodie"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_rare_sunglasses_pirate_patch"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "92c6dcfbb4cd1f1099786db6d37ccdd13aff068b",
+    "name": "#9",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/9.png",
+    "edition": 9,
+    "date": 1649691249510,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_common_background_aqua"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_common_body_normal"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_common_eyes_focus"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_rare_headwear_pink_punk"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_twisted"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_rare_outfit_lumberjack"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_common_sunglasses_empty"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  },
+  {
+    "dna": "65522c8048ee942dab09708811e40b42a7b12247",
+    "name": "#10",
+    "description": "This is the description of your NFT project, remember to replace this",
+    "image": "https://elbrussmartchain/nft/10.png",
+    "edition": 10,
+    "date": 1649691249910,
+    "attributes": [
+      {
+        "trait_type": "layer1",
+        "value": "Layer1_rare_background_snow"
+      },
+      {
+        "trait_type": "layer2",
+        "value": "Layer2_rare_body_alien"
+      },
+      {
+        "trait_type": "layer3",
+        "value": "Layer3_common_eyes_focus"
+      },
+      {
+        "trait_type": "layer4",
+        "value": "Layer4_common_head_normal"
+      },
+      {
+        "trait_type": "layer5",
+        "value": "Layer5_legendary_headwear_cowboy"
+      },
+      {
+        "trait_type": "layer6",
+        "value": "Layer6_common_mouth_lips"
+      },
+      {
+        "trait_type": "layer7",
+        "value": "Layer7_common_"
+      },
+      {
+        "trait_type": "layer8",
+        "value": "Layer8_rare_outfit_lumberjack"
+      },
+      {
+        "trait_type": "layer9",
+        "value": "Layer9_rare_sunglasses_pirate_patch"
+      }
+    ],
+    "compiler": "HashLips Art Engine"
+  }
+]
