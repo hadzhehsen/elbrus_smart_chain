@@ -11,14 +11,14 @@ import DashBoardPage from './components/NFT/DashBoardPage';
 import HeaderPage from './components/NFT/UI/header/HeaderPage';
 import ResellNFT from './components/NFT/ResselNftPage';
 import './App.css';
-import Navbar from './components/Navbar';
+import Particle from './components/Particles';
 
 function App() {
   return (
     <>
       <div className='App'>
+        <Particle />
         <Preloader2 />
-        {/* <Navbar /> */}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/images' element={<Images />} />

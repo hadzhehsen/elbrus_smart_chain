@@ -14,26 +14,20 @@ const defaultOptions = {
 };
 
 export default function Preloader2() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(undefined);
-  const [completed, setCompleted] = useState(undefined);
+  const [loader, setLoader] = useState(localStorage.getItem('newStorage'));
 
+  console.log(loader);
   useEffect(() => {
-    setTimeout(() => {
-      fetch('https://jsonplaceholder.typicode.com/posts/1')
-        .then((response) => response.json())
-        .then((json) => {
-          setData(json);
-          setLoading(true);
-          setCompleted(true);
-        });
-    }, 3000);
+    if (!loader)
+      setTimeout(() => {
+        localStorage.setItem('newStorage', 'true');
+        setLoader(localStorage.getItem('newStorage'));
+      }, 3000);
   }, []);
 
   return (
     <>
-      <Particle />
-      {!completed ? (
+      {!loader ? (
         <Lottie options={defaultOptions} height={400} width={400} />
       ) : (
         <Navbar />
