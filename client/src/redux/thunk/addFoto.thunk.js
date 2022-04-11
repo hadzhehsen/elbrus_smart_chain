@@ -1,6 +1,3 @@
-import axios from 'axios'
-import { addFotos } from '../actions/addFoto.action'
-
 export const asyncAddPhoto = (form) => async (dispatch) => {
   // console.log('=>>>>>>>>>>>>>>>>>>>>', form);
   // let formData = new FormData(form)
@@ -12,7 +9,7 @@ export const asyncAddPhoto = (form) => async (dispatch) => {
   //   formData.append(key, form[key])
   // }
   console.log('formdata=>>>>>>>>>>>>>>>>>>>>>>>', form);
-  await fetch('http://localhost:3005/upload', {
+  await fetch('http://localhost:3001/upload', {
     method: 'POST',
     body: form
   })
