@@ -82,7 +82,7 @@ export default function CreateNFT() {
 
   return (
     <Form
-      className='container col-md-5'
+      className='container col-md-5 '
       style={{ display: 'flex', flexDirection: 'column' }}
     >
       <Form.Group>
@@ -121,18 +121,20 @@ export default function CreateNFT() {
           onChange={onChange}
         />
       </Form.Group>
+      <Form.Group className='mx-auto'>
+        {fileUrl && (
+          <Image
+            className='rounded'
+            width={300}
+            height={300}
+            src={fileUrl}
+            alt={'kartinka'}
+          />
+        )}
+      </Form.Group>
       <Button variant='light' onClick={listNFTForSale} className='mx-auto my-1'>
         Create NFT
       </Button>
-      {fileUrl && (
-        <Image
-          className='rounded'
-          width={300}
-          height={300}
-          src={fileUrl}
-          alt={'kartinka'}
-        />
-      )}
     </Form>
   );
 }

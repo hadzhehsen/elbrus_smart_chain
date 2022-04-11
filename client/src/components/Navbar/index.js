@@ -14,23 +14,27 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Connect', 'Images', 'Faces','homeNFT', 'create-nft', 'my-nfts', 'dashboard'];
+const pages = [
+  'Connect',
+  'Images',
+  'Faces',
+  'homeNFT',
+  'create-nft',
+  'my-nfts',
+  'dashboard',
+];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-
 
   const navigateHandler = (e) => {
     navigate(`/${e.target.name}`);
@@ -102,7 +106,12 @@ const Navbar = () => {
                 key={page}
                 name={page}
                 onClick={navigateHandler}
-                sx={{ my: 2, color: 'white', display: 'block', fontSize: '20px' }}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                  fontSize: '20px',
+                }}
               >
                 {page}
               </Button>

@@ -52,7 +52,7 @@ app.post('/wallet', async (req, res) => {
 });
 
 app.get('/isauth', mw.checkAuth, async (req, res) => {
-  console.log('=>>>>>>>>>>>>>>>>>>>>>>>>>>>' ,req.session);
+  console.log('=>>>>>>>>>>>>>>>>>>>>>>>>>>>', req.session);
   req.session ? res.json(req.session.wallet) : res.status(401);
 });
 
