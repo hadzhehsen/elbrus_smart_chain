@@ -5,7 +5,7 @@ const baseUri = 'https://elbrussmartchain/nft';
 
 const layerConfigurations = [
   {
-    growEditionSizeTo: 10,
+    growEditionSizeTo: 50,
     layersOrder: [
       { name: 'layer1' },
       { name: 'layer2' },

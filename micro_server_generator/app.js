@@ -57,6 +57,7 @@ app.post('/wallet', async (req, res) => {
   console.log('=>');
   const walletString = await req.body.result;
   req.session.wallet = walletString;
+  console.log(req.session, '===================== SESSIYA EBAT');
   res.end();
 });
 
@@ -70,17 +71,19 @@ const storage = multer.diskStorage({
     cb(null, './uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const date = Date.now();
+    cb(null, `${date}-layers.zip`);
   },
 });
 
 const upload = multer({ storage, dest: path.join(process.env.PWD, 'uploads/') });
 
 app.post('/upload', upload.single('layer1'), async (req, res) => {
-  console.log(req.file);
+  const { filename } = req.file;
+  console.log(req.session);
   const { wallet } = req.session;
-  console.log(wallet);
-  if (req.file.filename !== 'layers.zip') res.status(403).end();
+  fs.rename(`./uploads/${filename}`, `./uploads/${wallet}-layers.zip`, () => console.log('File renamed!'));
+  if (req.file.filename !== 'layers.zip') return res.status(403).end();
   const output = fs.createWriteStream(`${process.env.PWD}/build.zip`);
   const archive = archiver('zip', {
     zlib: { level: 9 }, // Sets the compression level.
@@ -99,14 +102,14 @@ app.post('/upload', upload.single('layer1'), async (req, res) => {
     throw err;
   });
   archive.pipe(output);
-  archive
+  await archive
     .directory('./build', false)
     .finalize();
   output.on('close', () => console.log('Pipe closed!'));
   const fileName = 'build.zip';
   const filePath = './build.zip';
   console.log(filePath, fileName);
-  res.download(filePath);
+  return res.download(filePath);
 });
 
 app.listen(PORT, () => console.log(`listening on porn: ${PORT}...`));

@@ -1,14 +1,14 @@
 {
-  "dna": "7cd42e61a37c39477c321b5b2adf56f5c538f8c2",
+  "dna": "16de3f763e8eb32d16d94f6eaaec8d1056388ebb",
   "name": "#4",
   "description": "This is the description of your NFT project, remember to replace this",
   "image": "https://elbrussmartchain/nft/4.png",
   "edition": 4,
-  "date": 1649679568994,
+  "date": 1649687466684,
   "attributes": [
     {
       "trait_type": "layer1",
-      "value": "Layer1_rare_background_snow"
+      "value": "Layer1_common_background_aqua"
     },
     {
       "trait_type": "layer2",
@@ -20,11 +20,11 @@
     },
     {
       "trait_type": "layer4",
-      "value": "Layer4_epic_head_zombie"
+      "value": "Layer4_rare_head_alien"
     },
     {
       "trait_type": "layer5",
-      "value": "Layer5_common_headwear_empty"
+      "value": "Layer5_epic_headwear_sailor"
     },
     {
       "trait_type": "layer6",
@@ -36,11 +36,11 @@
     },
     {
       "trait_type": "layer8",
-      "value": "Layer8_common_outfit_pink_hoodie"
+      "value": "Layer8_common_outfit_gap"
     },
     {
       "trait_type": "layer9",
-      "value": "Layer9_epic_sunglasses_cateyes"
+      "value": "Layer9_legendary_sunglasses_thug_sunglasses"
     }
   ],
   "compiler": "ElbrusSmartChain Compiler"
