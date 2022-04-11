@@ -26,7 +26,7 @@ export default function Images() {
     <>
       <Form.Group controlId="formFile" className="col-md-5 mx-auto" >
         <Form.Label>Голова</Form.Label>
-        <Form.Control type="file" name='layer1' multiple onChange={formHandler} />
+        <Form.Control type="file" name='layer1' accept='application/zip' onChange={formHandler} />
         <Form.Label >Нажмите чтобы отправить</Form.Label>
         <Form.Control type="submit" onClick={subHandler} />
       </Form.Group>
