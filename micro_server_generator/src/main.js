@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-shadow */
@@ -112,7 +113,7 @@ const addMetadata = (_dna, _edition) => {
     edition: _edition,
     date: dateTime,
     attributes: attributesList,
-    compiler: 'HashLips Art Engine',
+    compiler: 'ElbrusSmartChain Compiler',
   };
   metadataList.push(tempMetadata);
   attributesList = [];
@@ -126,6 +127,7 @@ const addAttributes = (_element) => {
   });
 };
 
+// eslint-disable-next-line no-async-promise-executor
 const loadLayerImg = async (_layer) => new Promise(async (resolve) => {
   const image = await loadImage(`${_layer.selectedElement.path}`);
   resolve({ layer: _layer, loadedImage: image });

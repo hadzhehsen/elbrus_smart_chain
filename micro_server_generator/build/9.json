@@ -1,0 +1,47 @@
+{
+  "dna": "02b976f034318aa8e701de087910be5caf7ad7d1",
+  "name": "#9",
+  "description": "This is the description of your NFT project, remember to replace this",
+  "image": "https://elbrussmartchain/nft/9.png",
+  "edition": 9,
+  "date": 1649679572208,
+  "attributes": [
+    {
+      "trait_type": "layer1",
+      "value": "Layer1_common_background_forest"
+    },
+    {
+      "trait_type": "layer2",
+      "value": "Layer2_rare_body_alien"
+    },
+    {
+      "trait_type": "layer3",
+      "value": "Layer3_epic_eyes_angry"
+    },
+    {
+      "trait_type": "layer4",
+      "value": "Layer4_rare_head_alien"
+    },
+    {
+      "trait_type": "layer5",
+      "value": "Layer5_epic_headwear_leaves"
+    },
+    {
+      "trait_type": "layer6",
+      "value": "Layer6_common_mouth_twisted"
+    },
+    {
+      "trait_type": "layer7",
+      "value": "Layer7_common_"
+    },
+    {
+      "trait_type": "layer8",
+      "value": "Layer8_common_outfit_pink_hoodie"
+    },
+    {
+      "trait_type": "layer9",
+      "value": "Layer9_epic_sunglasses_cateyes"
+    }
+  ],
+  "compiler": "ElbrusSmartChain Compiler"
+}
