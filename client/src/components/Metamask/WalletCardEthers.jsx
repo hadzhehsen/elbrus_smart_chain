@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import './index.module.css';
 import MetamaskModal from '../MetamaskModal';
+import style from './index.module.css'
 
 const WalletCardEthers = () => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -42,7 +43,7 @@ const WalletCardEthers = () => {
   return (
     <div className='walletCard'>
       <h4> Connection to MetaMask using ethers.js </h4>
-      <button onClick={connectWalletHandler}>{connButtonText}</button>
+      <button onClick={connectWalletHandler}  className={style.btn}>{connButtonText}</button>
       <div className='accountDisplay'>
         <h3>Address: {defaultAccount}</h3>
       </div>
