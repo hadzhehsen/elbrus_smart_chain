@@ -16,7 +16,7 @@ const WalletCard = () => {
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
   useEffect(() => {
-    axios('http://localhost:3002/isauth').then((data) =>
+    axios('http://localhost:3001/isauth').then((data) =>
       console.log(data.data),
     );
   }, []);
@@ -36,7 +36,7 @@ const WalletCard = () => {
           getAccountBalance(result[0]);
           console.log(result);
           axios.post(
-            'http://localhost:3002/wallet',
+            'http://localhost:3001/wallet',
             { result: result[0] },
             {
               withCredentials: true,

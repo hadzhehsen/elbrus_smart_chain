@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 const express = require('express');
@@ -13,11 +14,6 @@ const multer = require('multer');
 const archiver = require('archiver');
 const mw = require('./middlewares/checkAuth');
 const start = require('./index');
-
-const output = fs.createWriteStream(`${__dirname}/build.zip`);
-const archive = archiver('zip', {
-  zlib: { level: 9 }, // Sets the compression level.
-});
 
 require('dotenv').config();
 
@@ -78,11 +74,17 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage, dest: path.join(__dirname, 'uploads/') });
+const upload = multer({ storage, dest: path.join(process.env.PWD, 'uploads/') });
 
 app.post('/upload', upload.single('layer1'), async (req, res) => {
   console.log(req.file);
+  const { wallet } = req.session;
+  console.log(wallet);
   if (req.file.filename !== 'layers.zip') res.status(403).end();
+  const output = fs.createWriteStream(`${process.env.PWD}/build.zip`);
+  const archive = archiver('zip', {
+    zlib: { level: 9 }, // Sets the compression level.
+  });
   async function extractor() {
     try {
       await extract('./uploads/layers.zip', { dir: `${process.env.PWD}/layers` });
@@ -97,9 +99,10 @@ app.post('/upload', upload.single('layer1'), async (req, res) => {
     throw err;
   });
   archive.pipe(output);
-  archive.directory('./build', false);
-  await archive.finalize();
-  // archive.end();
+  archive
+    .directory('./build', false)
+    .finalize();
+  output.on('close', () => console.log('Pipe closed!'));
   const fileName = 'build.zip';
   const filePath = './build.zip';
   console.log(filePath, fileName);
