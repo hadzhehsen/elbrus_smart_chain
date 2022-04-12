@@ -132,3 +132,4 @@ dist
 micro_server_generator/build
 .DS_Store
 sessions
+*.zip

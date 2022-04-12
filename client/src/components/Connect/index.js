@@ -7,7 +7,7 @@ export default function Connect() {
     <>
     <div className={style.div}>
     <WalletCard/>
-    <WalletCardEthers/>
+    {/* <WalletCardEthers/> */}
     </div>
     </>
   )
