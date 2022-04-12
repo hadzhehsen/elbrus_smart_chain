@@ -1,42 +1,45 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUsers } from '../../redux/actions/user.action';
+import { useDispatch } from 'react-redux';
 import { asyncAddPhoto } from '../../redux/thunk/addFoto.thunk';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Images() {
   const [form, setForm] = useState(null);
   const dispatch = useDispatch();
-  const userWallet = useSelector((store) => store.users);
+  const navigate = useNavigate();
 
   const formHandler = (e) => {
     setForm(e.target.files);
   };
 
-  // console.log(window.ethereum._state.accounts[0]);
-  const subHandler = (e) => {
+  const subHandler = async (e) => {
     e.preventDefault();
     let formData = new FormData();
-    console.log(form);
     for (let i = 0; i < form.length; i++) {
       formData.append(`layer1`, form[i]);
       formData.append(`wallet`, window.ethereum._state.accounts[0]);
     }
     dispatch(asyncAddPhoto(formData));
+    setTimeout(() => {
+      navigate('/create-nft');
+    }, 3000);
+
     setForm(null);
   };
 
   return (
     <>
       <Form.Group controlId='formFile' className='col-md-5 mx-auto'>
-        <Form.Label>Голова</Form.Label>
+        <Form.Label>Вставь свой архив</Form.Label>
         <Form.Control
           type='file'
           name='layer1'
           accept='application/zip'
           onChange={formHandler}
         />
-        <Form.Label>Нажмите чтобы отправить</Form.Label>
+        <Form.Label>Нажми чтобы отправить</Form.Label>
         <Form.Control type='submit' onClick={subHandler} />
       </Form.Group>
     </>

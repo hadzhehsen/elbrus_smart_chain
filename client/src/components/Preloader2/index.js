@@ -32,7 +32,7 @@ export default function Preloader2() {
           options={defaultOptions}
           height={400}
           width={400}
-          style={{ position: 'absolute' }}
+          // style={{ position: 'absolute' }}
         />
       ) : (
         <Navbar />

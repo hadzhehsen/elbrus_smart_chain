@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 const express = require('express');
@@ -13,11 +14,6 @@ const multer = require('multer');
 const archiver = require('archiver');
 const mw = require('./middlewares/checkAuth');
 const start = require('./index');
-
-const output = fs.createWriteStream(`${__dirname}/build.zip`);
-const archive = archiver('zip', {
-  zlib: { level: 9 }, // Sets the compression level.
-});
 
 require('dotenv').config();
 
@@ -58,14 +54,14 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/wallet', async (req, res) => {
-  console.log('=>');
   const walletString = await req.body.result;
   req.session.wallet = walletString;
-  res.end();
+  res.json(walletString).end();
 });
 
 app.get('/isauth', mw.checkAuth, async (req, res) => {
-  console.log('=>>>>>>>>>>>>>>>>>>>>>>>>>>>', req.session);
+  // console.log('------------');
+  // console.log(req.session.wallet);
   req.session ? res.json(req.session.wallet) : res.status(401);
 });
 
@@ -74,16 +70,21 @@ const storage = multer.diskStorage({
     cb(null, './uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, file.originalname);
   },
 });
 
-const upload = multer({ storage, dest: path.join(__dirname, 'uploads/') });
+const upload = multer({
+  storage,
+  dest: path.join(process.env.PWD, 'uploads/'),
+});
 
 app.post('/upload', upload.single('layer1'), async (req, res) => {
-  console.log(req.file);
-  console.log(typeof req.body.wallet);
   if (req.file.filename !== 'layers.zip') res.status(403).end();
+  const output = fs.createWriteStream(`${process.env.PWD}/build.zip`);
+  const archive = archiver('zip', {
+    zlib: { level: 9 }, // Sets the compression level.
+  });
   async function extractor() {
     try {
       await extract('./uploads/layers.zip', {
@@ -100,13 +101,16 @@ app.post('/upload', upload.single('layer1'), async (req, res) => {
     throw err;
   });
   archive.pipe(output);
-  archive.directory('./build', false);
-  await archive.finalize();
-  // archive.end();
-  const fileName = 'build.zip';
-  const filePath = './build.zip';
-  console.log(filePath, fileName);
-  res.download(filePath);
+  archive.directory('./build', false).finalize();
+  output.on('close', () => {
+    console.log('Pipe closed!');
+    const fileName = 'build.zip';
+    const filePath = './build.zip';
+
+    res.download(filePath);
+  });
 });
+
+app.get('/tokenUri', async (req, res) => {});
 
 app.listen(PORT, () => console.log(`listening on porn: ${PORT}...`));

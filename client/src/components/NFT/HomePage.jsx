@@ -25,9 +25,8 @@ export default function HomePage() {
   }, []);
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.JsonRpcProvider(
-      'https://polygon-mumbai.infura.io/v3/338748305bac46e7bc0437a0a790e08b',
-    );
+    const provider = new ethers.providers.JsonRpcProvider();
+    // 'https://polygon-mumbai.infura.io/v3/338748305bac46e7bc0437a0a790e08b',
     const contract = new ethers.Contract(
       marketplaceAddress,
       NFTMarketplace.abi,
@@ -42,10 +41,21 @@ export default function HomePage() {
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await contract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        // const meta = await fetch(tokenUri, { method: 'GET', mode: 'no-cors' });
+
+        console.log(tokenUri);
+        const meta = await axios(tokenUri);
+
+        // const meta = await fetch(tokenUri, { method: 'GET', mode: 'no-cors', credentials: 'include' });
+        // const meta = await fetch('http://localhost:3001/tokenUri', {
+        //   method: 'GET',
+        //   headers: { 'Content-Type': 'application/JSON' },
+        //   mode: 'no-cors',
+        //   body: JSON.stringify(tokenUri),
+        // }).then((info) => console.log(info));
+        // const response = await
+        // console.log(meta);
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        console.log(meta);
+        // console.log(meta);
         let item = {
           price,
           tokenId: i.tokenId.toNumber(),
@@ -81,7 +91,7 @@ export default function HomePage() {
     await transaction.wait();
     loadNFTs();
   }
-  console.log(nfts);
+  // console.log(nfts);
 
   // console.log(loadingState);
   if (loadingState === 'loaded' && !nfts.length)
@@ -98,7 +108,7 @@ export default function HomePage() {
         }
       >
         {nfts.map((nft) => (
-          <Carousel.Item>
+          <Carousel.Item key={nft.tokenId}>
             <div className='' style={{ padding: 75 }}>
               <Card
                 className='px-5'

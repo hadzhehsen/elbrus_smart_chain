@@ -8,6 +8,7 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { marketplaceAddress } from '../../config';
 
 import NFTMarketplace from '../../NFTMarketplace.json';
+import { Card } from 'react-bootstrap';
 
 export default function ResellNFT() {
   const [formInput, updateFormInput] = useState({ price: '', image: '' });
@@ -54,8 +55,8 @@ export default function ResellNFT() {
   }
 
   return (
-    <div className='flex justify-center'>
-      <div className='w-1/2 flex flex-col pb-12'>
+    <Card className=''>
+      <Card.Body className=''>
         <input
           placeholder='Asset Price in Eth'
           className='mt-2 border rounded p-4'
@@ -63,14 +64,21 @@ export default function ResellNFT() {
             updateFormInput({ ...formInput, price: e.target.value })
           }
         />
-        {image && <img className='rounded mt-4' width='350' src={image} />}
+        {image && (
+          <img
+            className='rounded mt-4'
+            width='350'
+            src={image}
+            alt='kartinka'
+          />
+        )}
         <button
           onClick={listNFTForSale}
           className='font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg'
         >
           List NFT
         </button>
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 }

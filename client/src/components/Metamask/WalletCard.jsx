@@ -6,12 +6,12 @@ import style from './index.module.css';
 import MetamaskModal from '../MetamaskModal';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUsers } from '../../redux/actions/user.action';
 
 const WalletCard = () => {
-  axios.defaults.withCredentials = true;
-  // console.log(axios.defaults, 'axiooosssss');
+  const user = useSelector((store) => store.users);
+  axios.defaults.withCredentials = false;
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
@@ -19,25 +19,22 @@ const WalletCard = () => {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  //   axios('http://localhost:3002/isauth').then((data) =>
-  //     console.log(data.data),
+  //   axios('http://localhost:3001/isauth').then(
+  //     (data) => dispatch(addUsers(data.data)),
+  //     // console.log(data.data[0], '8=====================D'),
   //   );
-  // }, []);
-
-  // console.log('---pre---------', window.ethereum);
+  // }, [user]);
 
   const connectWalletHandler = () => {
-    // console.log(window.ethereum);
     if (window.ethereum && window.ethereum.isMetaMask) {
       console.log('MetaMask Here!');
-
       window.ethereum
         .request({ method: 'eth_requestAccounts' })
         .then((result) => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
-          console.log(result);
+          // console.log(result);
           axios
             .post(
               'http://localhost:3001/wallet',
@@ -49,16 +46,19 @@ const WalletCard = () => {
                 },
               },
             )
-            .then((data) => dispatch(addUsers(data[0])));
+            .then((data) => dispatch(addUsers(data.data)));
         })
         .catch((error) => {
           setErrorMessage(error.message);
         });
     } else {
+      setDefaultAccount(null);
       console.log('Need to install MetaMask');
       setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
+  // console.log('-------------', user);
+  // async function disconnect
 
   // update account, will cause component re-render
   const accountChangedHandler = (newAccount) => {
@@ -88,25 +88,27 @@ const WalletCard = () => {
   window.ethereum?.on('chainChanged', chainChangedHandler);
 
   return (
-    <div className={style.walletCard}>
-      <h4> {'Connect your MetaMask'} </h4>
-      <div className='accountDisplay'>
-        <h3>Address: {defaultAccount}</h3>
+    <>
+      <div className={style.walletCard}>
+        <h4> {'Connect your MetaMask'} </h4>
+        <div className='accountDisplay'>
+          <h3>Address: {defaultAccount}</h3>
+        </div>
+        <div className='balanceDisplay'>
+          <h3>Balance: {userBalance}</h3>
+        </div>
+        <Button onClick={connectWalletHandler} variant='light'>
+          {user ? 'Logout' : 'Login'}
+        </Button>
+        {errorMessage && (
+          <MetamaskModal
+            setError={setErrorMessage}
+            error={errorMessage}
+            status={true}
+          />
+        )}
       </div>
-      <div className='balanceDisplay'>
-        <h3>Balance: {userBalance}</h3>
-      </div>
-      <Button onClick={connectWalletHandler} variant='light'>
-        {window.ethereum?._events.connect === false ? 'Connect' : 'Disconnect'}
-      </Button>
-      {errorMessage && (
-        <MetamaskModal
-          setError={setErrorMessage}
-          error={errorMessage}
-          status={true}
-        />
-      )}
-    </div>
+    </>
   );
 };
 
