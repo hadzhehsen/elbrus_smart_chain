@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import style from './index.module.css';
 import MetamaskModal from '../MetamaskModal';
 import axios from 'axios';
-import { Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap';
 
 const WalletCard = () => {
   axios.defaults.withCredentials = true;
@@ -16,7 +16,7 @@ const WalletCard = () => {
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
 
   useEffect(() => {
-    axios('http://localhost:3002/isauth').then((data) =>
+    axios('http://localhost:3001/isauth').then((data) =>
       console.log(data.data),
     );
   }, []);
@@ -36,7 +36,7 @@ const WalletCard = () => {
           getAccountBalance(result[0]);
           console.log(result);
           axios.post(
-            'http://localhost:3002/wallet',
+            'http://localhost:3001/wallet',
             { result: result[0] },
             {
               withCredentials: true,
@@ -92,7 +92,7 @@ const WalletCard = () => {
         <h3>Balance: {userBalance}</h3>
       </div>
       <Button onClick={connectWalletHandler} variant='light'>
-        {window.ethereum?._events.connect === true ? 'Connect' : 'Disconnect'} 
+        {window.ethereum?._events.connect === true ? 'Connect' : 'Disconnect'}
       </Button>
       {errorMessage && (
         <MetamaskModal
