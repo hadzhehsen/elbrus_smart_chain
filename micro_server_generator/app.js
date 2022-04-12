@@ -78,20 +78,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage, dest: path.join(process.env.PWD, 'uploads/') });
 
-app.post('/upload', mw.checkAuth, upload.single('layer1'), async (req, res) => {
+app.post('/upload', upload.single('layer1'), async (req, res) => {
   const { filename } = req.file;
   console.log(req.session);
   const { wallet } = req.session;
   fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () => console.log('File renamed!'));
   // if (req.file.filename !== 'layers.zip') return res.status(403).end();
   if (!fs.existsSync(`./layers-${wallet}`)) fs.mkdirSync(`./layers-${wallet}`);
-  fs.readdir(`./layers-${wallet}`, (err, files) => {
-    if (err) console.error(err);
-    else console.log(files);
-  });
   const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);
   const archive = archiver('zip', {
-    zlib: { level: 9 }, // Sets the compression level.
+    zlib: { level: -1 }, // Sets the compression level.
   });
   async function extractor(_wallet) {
     try {
@@ -101,25 +97,37 @@ app.post('/upload', mw.checkAuth, upload.single('layer1'), async (req, res) => {
     }
   }
   await extractor(wallet);
+  fs.readdir(`./layers-${wallet}`, (err, directories) => {
+    if (err) console.error(err);
+    if (directories.length !== 6) res.status(503).json({ message: 'Неверная конфигурация архива, неверное кол-во папок' });
+    if (directories[0] !== 'layer1') return res.status(503).json({ message: 'Неверная конфигурация архива, создайте папки по шаблону' });
+    if (directories[1] !== 'layer2') return res.status(503).json({ message: 'Неверная конфигурация архива, создайте папки по шаблону' });
+    if (directories[2] !== 'layer3') return res.status(503).json({ message: 'Неверная конфигурация архива, создайте папки по шаблону' });
+    if (directories[3] !== 'layer4') return res.status(503).json({ message: 'Неверная конфигурация архива, создайте папки по шаблону' });
+    if (directories[4] !== 'layer5') return res.status(503).json({ message: 'Неверная конфигурация архива, создайте папки по шаблону' });
+    if (directories[5] !== 'layer6') return res.status(503).json({ message: 'Неверная конфигурация архива, создайте папки по шаблону' });
+  });
   start(wallet);
   if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
   archive.on('error', (err) => {
     console.log(err);
     throw err;
   });
+  const fileName = `build-${wallet}.zip`;
+  const filePath = `./build-${wallet}.zip`;
   archive.pipe(output);
   await archive
     .directory(`./build-${wallet}`, false)
     .finalize();
-  output.on('close', () => console.log('Pipe closed!'));
-  if (fs.existsSync(`./layers-${wallet}`)) fs.rmSync(`./layers-${wallet}`, { recursive: true, force: true });
-  const fileName = 'NFTS.zip';
-  const filePath = `./build-${wallet}.zip`;
-  res.download(filePath, fileName);
-  console.log(`${wallet} - DELETED BUILD DIRRECTORY`);
-  if (fs.existsSync(`./build-${wallet}`)) fs.rmSync(`./build-${wallet}`, { recursive: true, force: true });
-  console.log(`${wallet} - DELETED ZIP`);
-  // if (fs.existsSync(filePath)) fs.unlink(filePath);
+  output.on('close', () => {
+    console.log('Pipe closed!');
+
+    if (fs.existsSync(`./layers-${wallet}`)) fs.rmSync(`./layers-${wallet}`, { recursive: true, force: true });
+    res.download(filePath, fileName);
+    console.log(`${wallet} - DELETED LAYERS DIRRECTORY`);
+    if (fs.existsSync(`./build-${wallet}`)) fs.rmSync(`./build-${wallet}`, { recursive: true, force: true });
+    console.log(`${wallet} - DELETED BUILD DIRRECTORY`);
+  });
 });
 
 app.listen(PORT, () => console.log(`listening on porn: ${PORT}...`));
