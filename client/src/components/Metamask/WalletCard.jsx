@@ -6,8 +6,8 @@ import style from './index.module.css';
 import MetamaskModal from '../MetamaskModal';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUsers } from '../../redux/actions/user.action';
+import ConnectButton from '../ConnectButton';
+import DiscButton from '../DiscButton';
 
 const WalletCard = () => {
   const user = useSelector((store) => store.users);
@@ -16,14 +16,26 @@ const WalletCard = () => {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
-  const dispatch = useDispatch();
+  const [user, setUser] = useState(null)
+  const [balance, setBalance] = useState(null)
 
-  // useEffect(() => {
-  //   axios('http://localhost:3001/isauth').then(
-  //     (data) => dispatch(addUsers(data.data)),
-  //     // console.log(data.data[0], '8=====================D'),
-  //   );
-  // }, [user]);
+  useEffect(() => {
+    setUser(localStorage.getItem('wallet'))
+    setBalance(localStorage.getItem('balance'))
+  }, [userBalance]);
+
+  const disconnect = () => {
+    setUser(null)
+    setBalance(null)
+    setUserBalance(null)
+    localStorage.removeItem('wallet')
+    localStorage.removeItem('balance')
+    axios.get('http://localhost:3001/clearcookie', {
+      credentials: 'include'
+    })
+
+  }
+
 
   const connectWalletHandler = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
@@ -34,16 +46,17 @@ const WalletCard = () => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
-          // console.log(result);
-          axios
-            .post(
-              'http://localhost:3001/wallet',
-              { result: result[0] },
-              {
-                withCredentials: true,
-                headers: {
-                  'Content-Type': 'application/json',
-                },
+          
+          console.log(result);
+          setUser(result[0])
+          localStorage.setItem('wallet', result[0])
+          axios.post(
+            'http://localhost:3001/wallet',
+            { result: result[0] },
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
               },
             )
             .then((data) => dispatch(addUsers(data.data)));
@@ -71,6 +84,7 @@ const WalletCard = () => {
       .request({ method: 'eth_getBalance', params: [account, 'latest'] })
       .then((balance) => {
         setUserBalance(ethers.utils.formatEther(balance));
+        localStorage.setItem('balance', ethers.utils.formatEther(balance))
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -89,25 +103,16 @@ const WalletCard = () => {
 
   return (
     <>
-      <div className={style.walletCard}>
-        <h4> {'Connect your MetaMask'} </h4>
-        <div className='accountDisplay'>
-          <h3>Address: {defaultAccount}</h3>
-        </div>
-        <div className='balanceDisplay'>
-          <h3>Balance: {userBalance}</h3>
-        </div>
-        <Button onClick={connectWalletHandler} variant='light'>
-          {user ? 'Logout' : 'Login'}
-        </Button>
-        {errorMessage && (
-          <MetamaskModal
-            setError={setErrorMessage}
-            error={errorMessage}
-            status={true}
-          />
+    <div>
+      {!user ? <ConnectButton connect={connectWalletHandler} user={user}/> : <DiscButton user={user} balance={balance} disc={disconnect}/>}
+      {errorMessage && (
+        <MetamaskModal
+        setError={setErrorMessage}
+        error={errorMessage}
+        status={true}
+        />
         )}
-      </div>
+    </div>
     </>
   );
 };

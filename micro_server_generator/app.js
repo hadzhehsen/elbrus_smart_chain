@@ -53,6 +53,14 @@ app.use((err, req, res, next) => {
   }
 });
 
+app.post('/clearcookie', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) return res.sendStatus(500)
+    res.clearCookie('userCookie')
+    return res.sendStatus(200);
+  })
+};
+
 app.post('/wallet', async (req, res) => {
   const walletString = await req.body.result;
   req.session.wallet = walletString;
@@ -70,7 +78,8 @@ const storage = multer.diskStorage({
     cb(null, './uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const date = Date.now();
+    cb(null, `${date}-layers.zip`);
   },
 });
 
@@ -83,9 +92,9 @@ app.post('/upload', upload.single('layer1'), async (req, res) => {
   if (req.file.filename !== 'layers.zip') res.status(403).end();
   const output = fs.createWriteStream(`${process.env.PWD}/build.zip`);
   const archive = archiver('zip', {
-    zlib: { level: 9 }, // Sets the compression level.
+    zlib: { level: -1 }, // Sets the compression level.
   });
-  async function extractor() {
+  async function extractor(_wallet) {
     try {
       await extract('./uploads/layers.zip', {
         dir: `${process.env.PWD}/layers`,
@@ -94,8 +103,9 @@ app.post('/upload', upload.single('layer1'), async (req, res) => {
       console.log(error);
     }
   }
-  await extractor();
-  start();
+  await extractor(wallet);
+  start(wallet);
+  if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
   archive.on('error', (err) => {
     console.log(err);
     throw err;

@@ -30,12 +30,12 @@ const metadataList = [];
 let attributesList = [];
 const dnaList = [];
 
-const buildSetup = () => {
-  console.log(basePath);
-  if (fs.existsSync(buildDir)) {
-    fs.rmdirSync(buildDir, { recursive: true });
+const buildSetup = (_wallet) => {
+  console.log(`${basePath}/build-${_wallet}`);
+  if (fs.existsSync(`${basePath}/build-${_wallet}`)) {
+    fs.rmdirSync(`${basePath}/build-${_wallet}`, { recursive: true });
   }
-  fs.mkdirSync(buildDir);
+  fs.mkdirSync(`${basePath}/build-${_wallet}`);
 };
 
 const getRarityWeight = (_str) => {
@@ -73,11 +73,11 @@ const getElements = (path) => fs
     weight: getRarityWeight(i),
   }));
 
-const layersSetup = (layersOrder) => {
+const layersSetup = (layersOrder, _wallet) => {
   const layers = layersOrder.map((layerObj, index) => ({
     id: index,
     name: layerObj.name,
-    elements: getElements(`${layersDir}/${layerObj.name}/`),
+    elements: getElements(`${layersDir}-${_wallet}/${layerObj.name}/`),
     blendMode:
       layerObj.blend !== undefined ? layerObj.blend : 'source-over',
     opacity: layerObj.opacity !== undefined ? layerObj.opacity : 1,
@@ -85,9 +85,9 @@ const layersSetup = (layersOrder) => {
   return layers;
 };
 
-const saveImage = (_editionCount) => {
+const saveImage = (_editionCount, _wallet) => {
   fs.writeFileSync(
-    `${buildDir}/${_editionCount}.png`,
+    `${buildDir}-${_wallet}/${_editionCount}.png`,
     canvas.toBuffer('image/png'),
   );
 };
@@ -182,13 +182,13 @@ const createDna = (_layers) => {
   return randNum;
 };
 
-const writeMetaData = (_data) => {
-  fs.writeFileSync(`${buildDir}/_metadata.json`, _data);
+const writeMetaData = (_data, _wallet) => {
+  fs.writeFileSync(`${buildDir}-${_wallet}/_metadata.json`, _data);
 };
 
-const saveMetaDataSingleFile = (_editionCount) => {
+const saveMetaDataSingleFile = (_editionCount, _wallet) => {
   fs.writeFileSync(
-    `${buildDir}/${_editionCount}.json`,
+    `${buildDir}-${_wallet}/${_editionCount}.json`,
     JSON.stringify(
       metadataList.find((meta) => meta.edition === _editionCount),
       null,
@@ -197,13 +197,14 @@ const saveMetaDataSingleFile = (_editionCount) => {
   );
 };
 
-const startCreating = async () => {
+const startCreating = async (_wallet) => {
   let layerConfigIndex = 0;
   let editionCount = 1;
   let failedCount = 0;
   while (layerConfigIndex < layerConfigurations.length) {
     const layers = layersSetup(
       layerConfigurations[layerConfigIndex].layersOrder,
+      _wallet,
     );
     while (
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
@@ -225,9 +226,9 @@ const startCreating = async () => {
           renderObjectArray.forEach((renderObject) => {
             drawElement(renderObject);
           });
-          saveImage(editionCount);
+          saveImage(editionCount, _wallet);
           addMetadata(newDna, editionCount);
-          saveMetaDataSingleFile(editionCount);
+          saveMetaDataSingleFile(editionCount, _wallet);
           console.log(
             `Created edition: ${editionCount}, with DNA: ${sha1(
               newDna.join(''),
@@ -249,7 +250,7 @@ const startCreating = async () => {
     }
     layerConfigIndex += 1;
   }
-  writeMetaData(JSON.stringify(metadataList, null, 2));
+  writeMetaData(JSON.stringify(metadataList, null, 2), _wallet);
 };
 
 module.exports = { startCreating, buildSetup, getElements };
