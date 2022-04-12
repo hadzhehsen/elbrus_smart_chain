@@ -19,7 +19,7 @@ require('dotenv').config();
 
 const app = express();
 
-const PORT = process.env.PORT ?? 3002;
+const PORT = process.env.PORT ?? 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -53,10 +53,19 @@ app.use((err, req, res, next) => {
   }
 });
 
+app.post('/clearcookie', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) return res.sendStatus(500)
+    res.clearCookie('userCookie')
+    return res.sendStatus(200);
+  })
+};
+
 app.post('/wallet', async (req, res) => {
   console.log('=>');
   const walletString = await req.body.result;
   req.session.wallet = walletString;
+  console.log(req.session, '===================== SESSIYA EBAT');
   res.end();
 });
 
@@ -70,43 +79,55 @@ const storage = multer.diskStorage({
     cb(null, './uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const date = Date.now();
+    cb(null, `${date}-layers.zip`);
   },
 });
 
 const upload = multer({ storage, dest: path.join(process.env.PWD, 'uploads/') });
 
-app.post('/upload', upload.single('layer1'), async (req, res) => {
-  console.log(req.file);
+app.post('/upload', mw.checkAuth, upload.single('layer1'), async (req, res) => {
+  const { filename } = req.file;
+  console.log(req.session);
   const { wallet } = req.session;
-  console.log(wallet);
-  if (req.file.filename !== 'layers.zip') res.status(403).end();
-  const output = fs.createWriteStream(`${process.env.PWD}/build.zip`);
-  const archive = archiver('zip', {
-    zlib: { level: 9 }, // Sets the compression level.
+  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () => console.log('File renamed!'));
+  // if (req.file.filename !== 'layers.zip') return res.status(403).end();
+  if (!fs.existsSync(`./layers-${wallet}`)) fs.mkdirSync(`./layers-${wallet}`);
+  fs.readdir(`./layers-${wallet}`, (err, files) => {
+    if (err) console.error(err);
+    else console.log(files);
   });
-  async function extractor() {
+  const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);
+  const archive = archiver('zip', {
+    zlib: { level: -1 }, // Sets the compression level.
+  });
+  async function extractor(_wallet) {
     try {
-      await extract('./uploads/layers.zip', { dir: `${process.env.PWD}/layers` });
+      await extract(`./uploads/layers-${_wallet}.zip`, { dir: `${process.env.PWD}/layers-${_wallet}` });
     } catch (error) {
       console.log(error);
     }
   }
-  await extractor();
-  start();
+  await extractor(wallet);
+  start(wallet);
+  if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
   archive.on('error', (err) => {
     console.log(err);
     throw err;
   });
   archive.pipe(output);
-  archive
-    .directory('./build', false)
+  await archive
+    .directory(`./build-${wallet}`, false)
     .finalize();
   output.on('close', () => console.log('Pipe closed!'));
-  const fileName = 'build.zip';
-  const filePath = './build.zip';
-  console.log(filePath, fileName);
-  res.download(filePath);
+  if (fs.existsSync(`./layers-${wallet}`)) fs.rmSync(`./layers-${wallet}`, { recursive: true, force: true });
+  const fileName = 'NFTS.zip';
+  const filePath = `./build-${wallet}.zip`;
+  res.download(filePath, fileName);
+  console.log(`${wallet} - DELETED BUILD DIRRECTORY`);
+  if (fs.existsSync(`./build-${wallet}`)) fs.rmSync(`./build-${wallet}`, { recursive: true, force: true });
+  console.log(`${wallet} - DELETED ZIP`);
+  // if (fs.existsSync(filePath)) fs.unlink(filePath);
 });
 
 app.listen(PORT, () => console.log(`listening on porn: ${PORT}...`));

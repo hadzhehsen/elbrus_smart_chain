@@ -6,6 +6,8 @@ import style from './index.module.css';
 import MetamaskModal from '../MetamaskModal';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import ConnectButton from '../ConnectButton';
+import DiscButton from '../DiscButton';
 
 const WalletCard = () => {
   axios.defaults.withCredentials = true;
@@ -14,17 +16,28 @@ const WalletCard = () => {
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
+  const [user, setUser] = useState(null)
+  const [balance, setBalance] = useState(null)
 
   useEffect(() => {
-    axios('http://localhost:3001/isauth').then((data) =>
-      console.log(data.data),
-    );
-  }, []);
+    setUser(localStorage.getItem('wallet'))
+    setBalance(localStorage.getItem('balance'))
+  }, [userBalance]);
 
-  // console.log('---pre---------', window.ethereum);
+  const disconnect = () => {
+    setUser(null)
+    setBalance(null)
+    setUserBalance(null)
+    localStorage.removeItem('wallet')
+    localStorage.removeItem('balance')
+    axios.get('http://localhost:3001/clearcookie', {
+      credentials: 'include'
+    })
+
+  }
+
 
   const connectWalletHandler = () => {
-    // console.log(window.ethereum);
     if (window.ethereum && window.ethereum.isMetaMask) {
       console.log('MetaMask Here!');
 
@@ -34,7 +47,10 @@ const WalletCard = () => {
           accountChangedHandler(result[0]);
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
+          
           console.log(result);
+          setUser(result[0])
+          localStorage.setItem('wallet', result[0])
           axios.post(
             'http://localhost:3001/wallet',
             { result: result[0] },
@@ -66,6 +82,7 @@ const WalletCard = () => {
       .request({ method: 'eth_getBalance', params: [account, 'latest'] })
       .then((balance) => {
         setUserBalance(ethers.utils.formatEther(balance));
+        localStorage.setItem('balance', ethers.utils.formatEther(balance))
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -83,25 +100,18 @@ const WalletCard = () => {
   window.ethereum?.on('chainChanged', chainChangedHandler);
 
   return (
-    <div className={style.walletCard}>
-      <h4> {'Connect your MetaMask'} </h4>
-      <div className='accountDisplay'>
-        <h3>Address: {defaultAccount}</h3>
-      </div>
-      <div className='balanceDisplay'>
-        <h3>Balance: {userBalance}</h3>
-      </div>
-      <Button onClick={connectWalletHandler} variant='light'>
-        {window.ethereum?._events.connect === true ? 'Connect' : 'Disconnect'}
-      </Button>
+    <>
+    <div>
+      {!user ? <ConnectButton connect={connectWalletHandler} user={user}/> : <DiscButton user={user} balance={balance} disc={disconnect}/>}
       {errorMessage && (
         <MetamaskModal
-          setError={setErrorMessage}
-          error={errorMessage}
-          status={true}
+        setError={setErrorMessage}
+        error={errorMessage}
+        status={true}
         />
-      )}
+        )}
     </div>
+    </>
   );
 };
 
