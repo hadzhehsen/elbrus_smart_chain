@@ -2,11 +2,20 @@ import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
-
 import { marketplaceAddress } from '../../config';
 // import NFTMarketplace from '../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
-
 import NFTMarketplace from '../../NFTMarketplace.json';
+import {
+  Button,
+  Card,
+  CardGroup,
+  Carousel,
+  Col,
+  Container,
+  Row,
+} from 'react-bootstrap';
+import styles from './HomePage.module.css';
+import { flexbox } from '@mui/system';
 
 export default function HomePage() {
   const [nfts, setNfts] = useState([]);
@@ -16,9 +25,8 @@ export default function HomePage() {
   }, []);
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.JsonRpcProvider(
-      'https://polygon-mumbai.infura.io/v3/338748305bac46e7bc0437a0a790e08b',
-    );
+    const provider = new ethers.providers.JsonRpcProvider();
+    // 'https://polygon-mumbai.infura.io/v3/338748305bac46e7bc0437a0a790e08b',
     const contract = new ethers.Contract(
       marketplaceAddress,
       NFTMarketplace.abi,
@@ -33,10 +41,21 @@ export default function HomePage() {
     const items = await Promise.all(
       data.map(async (i) => {
         const tokenUri = await contract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        // const meta = await fetch(tokenUri, { method: 'GET', mode: 'no-cors' });
+
+        console.log(tokenUri);
+        const meta = await axios(tokenUri);
+
+        // const meta = await fetch(tokenUri, { method: 'GET', mode: 'no-cors', credentials: 'include' });
+        // const meta = await fetch('http://localhost:3001/tokenUri', {
+        //   method: 'GET',
+        //   headers: { 'Content-Type': 'application/JSON' },
+        //   mode: 'no-cors',
+        //   body: JSON.stringify(tokenUri),
+        // }).then((info) => console.log(info));
+        // const response = await
+        // console.log(meta);
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        console.log(meta);
+        // console.log(meta);
         let item = {
           price,
           tokenId: i.tokenId.toNumber(),
@@ -72,41 +91,98 @@ export default function HomePage() {
     await transaction.wait();
     loadNFTs();
   }
+  // console.log(nfts);
 
-  console.log(loadingState);
+  // console.log(loadingState);
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className='px-20 py-10 text-3xl'>No items in marketplace</h1>;
   return (
-    <div className='flex justify-center'>
-      <div className='px-4' style={{ maxWidth: '1600px' }}>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4'>
-          {nfts.map((nft, i) => (
-            <div key={i} className='border shadow rounded-xl overflow-hidden'>
-              <img src={nft.image} alt={`imageNumber${i}`} />
-              <div className='p-4'>
-                <p
-                  style={{ height: '64px' }}
-                  className='text-2xl font-semibold'
-                >
-                  {nft.name}
-                </p>
-                <div style={{ height: '70px', overflow: 'hidden' }}>
-                  <p className='text-gray-400'>{nft.description}</p>
+    <>
+      <Carousel
+        interval={10000000}
+        style={
+          {
+            // width: 1000,
+            // height: 300,
+          }
+        }
+      >
+        {nfts.map((nft) => (
+          <Carousel.Item key={nft.tokenId}>
+            <div className='' style={{ padding: 75 }}>
+              <Card
+                className='px-5'
+                key={nft.tokenId}
+                style={{
+                  opacity: 0.9,
+                  // width: 675,
+                  color: 'white',
+                  gap: 20,
+                  flexDirection: 'row',
+                  backgroundColor: 'rgba(255, 255, 255, 0.01)', //145,46,84
+                  backdropFilter: 'blur(1px)',
+                }}
+              >
+                <div className='px-5' style={{ maxWidth: 400, maxHeight: 400 }}>
+                  <Card.Img
+                    // className='w-100'
+                    src={nft.image}
+                    style={{
+                      maxWidth: 250,
+                      minWidth: 250,
+                      maxHeight: 250,
+                      minHeight: 250,
+                    }}
+                    variant='top'
+                    alt={`imageNumber${nft.tokenId}`}
+                  />
                 </div>
-              </div>
-              <div className='p-4 bg-black'>
-                <p className='text-2xl font-bold text-white'>{nft.price} ETH</p>
-                <button
-                  className='mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded'
-                  onClick={() => buyNft(nft)}
-                >
-                  Buy
-                </button>
-              </div>
+                <div className=''>
+                  <Card.Title>Title {nft.name}</Card.Title>
+                  <Card.Text style={{}}>
+                    Description {nft.description}
+                  </Card.Text>
+                  <Card.Text style={{}}>Price {nft.price} MATIC</Card.Text>
+                  <Card.Text style={{}}>Owner: {nft.owner}</Card.Text>
+                  <Card.Text style={{}}>Who selling: {nft.seller}</Card.Text>
+                  <Button
+                    variant='light'
+                    style={{ borderColor: 'black' }}
+                    onClick={() => buyNft(nft)}
+                  >
+                    Buy
+                  </Button>
+                </div>
+              </Card>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </>
+
+    // karusel +- rabotaet
+    // <div style={{ display: 'flex', justifyContent: 'center' }}>
+    //   <Carousel
+    //     style={
+    //       {
+    //         // alignItems: 'center',
+    //       }
+    //     }
+    //   >
+    //     {nfts.map((el) => (
+    //       <Carousel.Item style={{}}>
+    //         <img
+    //           className='d-block'
+    //           alt='kek'
+    //           src={el.image}
+    //           style={{ width: 400, height: 400 }}
+    //         />
+    //         <Carousel.Caption>
+    //           <h5 style={{ color: 'blue' }}>{el.name}</h5>
+    //         </Carousel.Caption>
+    //       </Carousel.Item>
+    //     ))}
+    //   </Carousel>
+    // </div>
   );
 }
