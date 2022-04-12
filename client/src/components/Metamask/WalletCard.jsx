@@ -6,20 +6,23 @@ import style from './index.module.css';
 import MetamaskModal from '../MetamaskModal';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { addUsers } from '../../redux/actions/user.action';
 
 const WalletCard = () => {
   axios.defaults.withCredentials = true;
-  console.log(axios.defaults, 'axiooosssss');
+  // console.log(axios.defaults, 'axiooosssss');
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
   const [connButtonText, setConnButtonText] = useState('Connect Wallet');
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios('http://localhost:3002/isauth').then((data) =>
-      console.log(data.data),
-    );
-  }, []);
+  // useEffect(() => {
+  //   axios('http://localhost:3002/isauth').then((data) =>
+  //     console.log(data.data),
+  //   );
+  // }, []);
 
   // console.log('---pre---------', window.ethereum);
 
@@ -35,16 +38,18 @@ const WalletCard = () => {
           setConnButtonText('Wallet Connected');
           getAccountBalance(result[0]);
           console.log(result);
-          axios.post(
-            'http://localhost:3002/wallet',
-            { result: result[0] },
-            {
-              withCredentials: true,
-              headers: {
-                'Content-Type': 'application/json',
+          axios
+            .post(
+              'http://localhost:3001/wallet',
+              { result: result[0] },
+              {
+                withCredentials: true,
+                headers: {
+                  'Content-Type': 'application/json',
+                },
               },
-            },
-          );
+            )
+            .then((data) => dispatch(addUsers(data[0])));
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -92,7 +97,7 @@ const WalletCard = () => {
         <h3>Balance: {userBalance}</h3>
       </div>
       <Button onClick={connectWalletHandler} variant='light'>
-        {window.ethereum?._events.connect === true ? 'Connect' : 'Disconnect'}
+        {window.ethereum?._events.connect === false ? 'Connect' : 'Disconnect'}
       </Button>
       {errorMessage && (
         <MetamaskModal

@@ -11,6 +11,6 @@ export const asyncAddPhoto = (form) => async (dispatch) => {
   console.log('formdata=>>>>>>>>>>>>>>>>>>>>>>>', form);
   await fetch('http://localhost:3001/upload', {
     method: 'POST',
-    body: form
-  })
-}
+    body: form,
+  });
+};

@@ -1,5 +1,5 @@
 import initState from '../initState';
-const photoReducer = (state = initState().users, action) => {
+const usersReducer = (state = initState().users, action) => {
   const { type, payload } = action;
   switch (type) {
     case 'ADD_USERS':
@@ -9,4 +9,4 @@ const photoReducer = (state = initState().users, action) => {
   }
 };
 
-export default photoReducer;
+export default usersReducer;
