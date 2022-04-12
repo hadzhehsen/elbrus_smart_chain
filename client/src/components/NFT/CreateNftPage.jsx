@@ -9,6 +9,7 @@ import { marketplaceAddress } from '../../config';
 import NFTMarketplace from '../../NFTMarketplace.json';
 import { Button, Card, Form, Image } from 'react-bootstrap';
 import styles from './CreateNftPage.module.css';
+import Loader2 from '../Loader2';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -19,6 +20,8 @@ export default function CreateNFT() {
     name: '',
     description: '',
   });
+  const [loader, setLoader] = useState('')
+
   const navigate = useNavigate();
   // const router = useRouter()
 
@@ -54,6 +57,7 @@ export default function CreateNFT() {
   }
 
   async function listNFTForSale() {
+    setLoader(true)
     const url = await uploadToIPFS();
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -76,13 +80,13 @@ export default function CreateNFT() {
       value: listingPrice,
     });
     await transaction.wait();
-
     navigate('/homeNFT');
+    setLoader('')
   }
 
   return (
     <Form
-      className='container col-md-5'
+      className='container col-md-5 '
       style={{ display: 'flex', flexDirection: 'column' }}
     >
       <Form.Group>
@@ -121,18 +125,21 @@ export default function CreateNFT() {
           onChange={onChange}
         />
       </Form.Group>
+      <Form.Group className='mx-auto'>
+        {fileUrl && (
+          <Image
+            className='rounded'
+            width={300}
+            height={300}
+            src={fileUrl}
+            alt={'kartinka'}
+          />
+        )}
+      </Form.Group>
       <Button variant='light' onClick={listNFTForSale} className='mx-auto my-1'>
         Create NFT
       </Button>
-      {fileUrl && (
-        <Image
-          className='rounded'
-          width={300}
-          height={300}
-          src={fileUrl}
-          alt={'kartinka'}
-        />
-      )}
+      {loader !== '' ? (<Loader2/>) : ('')}
     </Form>
   );
 }
