@@ -53,23 +53,16 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.post('/clearcookie', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) return res.sendStatus(500)
-    res.clearCookie('userCookie')
-    return res.sendStatus(200);
-  })
-};
-
 app.post('/wallet', async (req, res) => {
+  console.log('=>');
   const walletString = await req.body.result;
   req.session.wallet = walletString;
-  res.json(walletString).end();
+  console.log(req.session, '===================== SESSIYA EBAT');
+  res.end();
 });
 
 app.get('/isauth', mw.checkAuth, async (req, res) => {
-  // console.log('------------');
-  // console.log(req.session.wallet);
+  console.log('=>>>>>>>>>>>>>>>>>>>>>>>>>>>', req.session);
   req.session ? res.json(req.session.wallet) : res.status(401);
 });
 
@@ -89,38 +82,91 @@ const upload = multer({
 });
 
 app.post('/upload', upload.single('layer1'), async (req, res) => {
-  if (req.file.filename !== 'layers.zip') res.status(403).end();
-  const output = fs.createWriteStream(`${process.env.PWD}/build.zip`);
+  const { filename } = req.file;
+  console.log(req.session);
+  const { wallet } = req.session;
+  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () =>
+    console.log('File renamed!'),
+  );
+  // if (req.file.filename !== 'layers.zip') return res.status(403).end();
+  if (!fs.existsSync(`./layers-${wallet}`)) fs.mkdirSync(`./layers-${wallet}`);
+  const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);
   const archive = archiver('zip', {
     zlib: { level: -1 }, // Sets the compression level.
   });
   async function extractor(_wallet) {
     try {
-      await extract('./uploads/layers.zip', {
-        dir: `${process.env.PWD}/layers`,
+      await extract(`./uploads/layers-${_wallet}.zip`, {
+        dir: `${process.env.PWD}/layers-${_wallet}`,
       });
     } catch (error) {
       console.log(error);
     }
   }
   await extractor(wallet);
+  // fs.readdir(`./layers-${wallet}`, (err, directories) => {
+  //   if (err) console.error(err);
+  //   if (directories.length !== 6) {
+  //     res.status(503).json({
+  //       message: 'Неверная конфигурация архива, неверное кол-во папок',
+  //     });
+  //   }
+  //   if (directories[0] !== 'layer1') {
+  //     return res.status(503).json({
+  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
+  //     });
+  //   }
+  //   if (directories[1] !== 'layer2') {
+  //     return res.status(503).json({
+  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
+  //     });
+  //   }
+  //   if (directories[2] !== 'layer3') {
+  //     return res.status(503).json({
+  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
+  //     });
+  //   }
+  //   if (directories[3] !== 'layer4') {
+  //     return res.status(503).json({
+  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
+  //     });
+  //   }
+  //   if (directories[4] !== 'layer5') {
+  //     return res.status(503).json({
+  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
+  //     });
+  //   }
+  //   if (directories[5] !== 'layer6') {
+  //     return res.status(503).json({
+  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
+  //     });
+  //   }
+  // });
   start(wallet);
-  if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
+  if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) {
+    fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
+  }
   archive.on('error', (err) => {
     console.log(err);
     throw err;
   });
+  const fileName = `build-${wallet}.zip`;
+  const filePath = `./build-${wallet}.zip`;
   archive.pipe(output);
-  archive.directory('./build', false).finalize();
+  await archive.directory(`./build-${wallet}`, false).finalize();
   output.on('close', () => {
     console.log('Pipe closed!');
-    const fileName = 'build.zip';
-    const filePath = './build.zip';
 
-    res.download(filePath);
+    if (fs.existsSync(`./layers-${wallet}`)) {
+      fs.rmSync(`./layers-${wallet}`, { recursive: true, force: true });
+    }
+    res.download(filePath, fileName);
+    console.log(`${wallet} - DELETED LAYERS DIRRECTORY`);
+    if (fs.existsSync(`./build-${wallet}`)) {
+      fs.rmSync(`./build-${wallet}`, { recursive: true, force: true });
+    }
+    console.log(`${wallet} - DELETED BUILD DIRRECTORY`);
   });
 });
-
-app.get('/tokenUri', async (req, res) => {});
 
 app.listen(PORT, () => console.log(`listening on porn: ${PORT}...`));
