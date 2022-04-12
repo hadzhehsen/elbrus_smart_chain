@@ -1,34 +1,34 @@
 {
-  "dna": "ccbc1b4aca2ed2709c737939f03014866c3769ac",
+  "dna": "2f7636563575d2bb33538d614fda0500774602ca",
   "name": "#1",
   "description": "This is the description of your NFT project, remember to replace this",
   "image": "https://elbrussmartchain/nft/1.png",
   "edition": 1,
-  "date": 1649679567115,
+  "date": 1649758372172,
   "attributes": [
     {
       "trait_type": "layer1",
-      "value": "Layer1_rare_background_psycho"
+      "value": "Layer1_common_background_forest"
     },
     {
       "trait_type": "layer2",
-      "value": "Layer2_epic_body_zombie"
+      "value": "Layer2_common_body_normal"
     },
     {
       "trait_type": "layer3",
-      "value": "Layer3_epic_eyes_angry"
+      "value": "Layer3_legendary_eyes_surprise"
     },
     {
       "trait_type": "layer4",
-      "value": "Layer4_epic_head_zombie"
+      "value": "Layer4_rare_head_alien"
     },
     {
       "trait_type": "layer5",
-      "value": "Layer5_epic_headwear_bowler"
+      "value": "Layer5_common_headwear_empty"
     },
     {
       "trait_type": "layer6",
-      "value": "Layer6_common_mouth_surprise"
+      "value": "Layer6_common_mouth_serious"
     },
     {
       "trait_type": "layer7",
@@ -36,11 +36,11 @@
     },
     {
       "trait_type": "layer8",
-      "value": "Layer8_rare_outfit_lumberjack"
+      "value": "Layer8_rare_outfit_blue_jacket"
     },
     {
       "trait_type": "layer9",
-      "value": "Layer9_rare_sunglasses_pirate_patch"
+      "value": "Layer9_common_sunglasses_aviator"
     }
   ],
   "compiler": "ElbrusSmartChain Compiler"

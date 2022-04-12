@@ -1,22 +1,22 @@
 {
-  "dna": "7cd42e61a37c39477c321b5b2adf56f5c538f8c2",
+  "dna": "fd526d44c4cd294e058d5a835c38af3bf57067dc",
   "name": "#4",
   "description": "This is the description of your NFT project, remember to replace this",
   "image": "https://elbrussmartchain/nft/4.png",
   "edition": 4,
-  "date": 1649679568994,
+  "date": 1649758373583,
   "attributes": [
     {
       "trait_type": "layer1",
-      "value": "Layer1_rare_background_snow"
+      "value": "Layer1_rare_background_psycho"
     },
     {
       "trait_type": "layer2",
-      "value": "Layer2_common_body_normal"
+      "value": "Layer2_rare_body_alien"
     },
     {
       "trait_type": "layer3",
-      "value": "Layer3_common_eyes_focus"
+      "value": "Layer3_rare_eyes_chill"
     },
     {
       "trait_type": "layer4",
@@ -24,7 +24,7 @@
     },
     {
       "trait_type": "layer5",
-      "value": "Layer5_common_headwear_empty"
+      "value": "Layer5_common_headwear_purple_hat"
     },
     {
       "trait_type": "layer6",
@@ -36,11 +36,11 @@
     },
     {
       "trait_type": "layer8",
-      "value": "Layer8_common_outfit_pink_hoodie"
+      "value": "Layer8_rare_outfit_blue_jacket"
     },
     {
       "trait_type": "layer9",
-      "value": "Layer9_epic_sunglasses_cateyes"
+      "value": "Layer9_rare_sunglasses_pirate_patch"
     }
   ],
   "compiler": "ElbrusSmartChain Compiler"

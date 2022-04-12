@@ -1,26 +1,26 @@
 {
-  "dna": "de9aadbe5df5aaee3d14beee9213f37331744ded",
+  "dna": "0f514ca034d2d6e650f66c91cdcb572a0b59bf72",
   "name": "#3",
   "description": "This is the description of your NFT project, remember to replace this",
   "image": "https://elbrussmartchain/nft/3.png",
   "edition": 3,
-  "date": 1649679568466,
+  "date": 1649758373091,
   "attributes": [
     {
       "trait_type": "layer1",
-      "value": "Layer1_common_background_forest"
+      "value": "Layer1_common_background_aqua"
     },
     {
       "trait_type": "layer2",
-      "value": "Layer2_rare_body_alien"
+      "value": "Layer2_common_body_normal"
     },
     {
       "trait_type": "layer3",
-      "value": "Layer3_epic_eyes_angry"
+      "value": "Layer3_rare_eyes_chill"
     },
     {
       "trait_type": "layer4",
-      "value": "Layer4_rare_head_alien"
+      "value": "Layer4_common_head_normal"
     },
     {
       "trait_type": "layer5",
@@ -28,7 +28,7 @@
     },
     {
       "trait_type": "layer6",
-      "value": "Layer6_rare_mouth_full_beard"
+      "value": "Layer6_common_mouth_twisted"
     },
     {
       "trait_type": "layer7",
@@ -36,7 +36,7 @@
     },
     {
       "trait_type": "layer8",
-      "value": "Layer8_rare_outfit_blue_jacket"
+      "value": "Layer8_common_outfit_pink_hoodie"
     },
     {
       "trait_type": "layer9",
