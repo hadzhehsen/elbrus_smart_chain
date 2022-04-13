@@ -28,7 +28,12 @@ export default function Preloader2() {
   return (
     <>
       {!loader ? (
-        <Lottie options={defaultOptions} height={400} width={400} />
+        <Lottie
+          options={defaultOptions}
+          height={400}
+          width={400}
+          // style={{ position: 'absolute' }}
+        />
       ) : (
         <Navbar />
       )}

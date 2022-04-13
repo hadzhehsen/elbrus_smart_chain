@@ -12,6 +12,7 @@ import HeaderPage from './components/NFT/UI/header/HeaderPage';
 import ResellNFT from './components/NFT/ResselNftPage';
 import './App.css';
 import Particle from './components/Particles';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
