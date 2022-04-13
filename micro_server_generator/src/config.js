@@ -13,7 +13,7 @@ const layerConfigurations = [
       { name: 'layer4' },
       { name: 'layer5' },
       { name: 'layer6' },
-      // { name: 'layer7' },
+      { name: 'layer7' },
       // { name: 'layer8' },
       // { name: 'layer9' },
     ],

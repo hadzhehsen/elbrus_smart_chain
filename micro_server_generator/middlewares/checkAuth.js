@@ -1,5 +1,6 @@
 const checkAuth = (req, res, next) => {
-  !req.session.wallet ? res.status(401) : next();
+  if (req.session.wallet) res.status(401);
+  else next();
 };
 
 module.exports = { checkAuth };
