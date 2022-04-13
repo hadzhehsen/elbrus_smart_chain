@@ -94,7 +94,9 @@ app.post('/upload', upload.single('layer1'), async (req, res) => {
   const { filename } = req.file;
   console.log(req.session);
   const { wallet } = req.session;
-  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () => console.log('File renamed!'));
+  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () =>
+    console.log('File renamed!'),
+  );
   // if (req.file.filename !== 'layers.zip') return res.status(403).end();
   if (!fs.existsSync(`./layers-${wallet}`)) fs.mkdirSync(`./layers-${wallet}`);
   const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);

@@ -23,13 +23,13 @@ function App() {
         <Preloader2 />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/images' element={<Images />} />
-          <Route path='/faces' element={<Faces />} />
+          <Route path='/generate' element={<Images />} />
+          {/* <Route path='/faces' element={<Faces />} /> */}
           <Route path='/connect' element={<Connect />} />
-          <Route path='/homeNFT' element={<HomePage />} />
-          <Route path='/create-nft' element={<CreateNFT />} />
+          <Route path='/explore' element={<HomePage />} />
+          <Route path='/upload' element={<CreateNFT />} />
           <Route path='/my-nfts' element={<MyNftPage />} />
-          <Route path='/dashboard' element={<DashBoardPage />} />
+          <Route path='/listed-nfts' element={<DashBoardPage />} />
           <Route path='/resell-nft' element={<ResellNFT />} />
         </Routes>
       </div>

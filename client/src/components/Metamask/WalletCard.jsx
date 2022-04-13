@@ -14,7 +14,7 @@ import { asyncDelUser } from '../../redux/thunk/delUser.thunk';
 
 const WalletCard = () => {
   const user = useSelector((store) => store.users);
-  console.log('USEEEEEEERS',user);
+  console.log('USEEEEEEERS', user);
   axios.defaults.withCredentials = false;
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -39,13 +39,12 @@ const WalletCard = () => {
   }, [userBalance, defaultAccount]);
 
   const disconnect = async () => {
-    dispatch(asyncDelUser(user[user.length - 1]))
+    dispatch(asyncDelUser(user[user.length - 1]));
     setUser1(null);
     setBalance(null);
     setUserBalance(null);
     localStorage.removeItem('wallet');
     localStorage.removeItem('balance');
-
   };
 
   const connectWalletHandler = () => {
@@ -91,7 +90,6 @@ const WalletCard = () => {
     localStorage.setItem('wallet', newAccount.toString());
     localStorage.setItem('balance', getAccountBalance(newAccount.toString()));
     // window.location.reload();
-
   };
 
   const getAccountBalance = (account) => {

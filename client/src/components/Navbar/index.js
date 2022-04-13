@@ -17,13 +17,13 @@ import bifrost_logo from '../../bifrost_logo.png';
 import './Styles.css';
 
 const pages = [
-  'Connect',
-  'Images',
-  'Faces',
-  'homeNFT',
-  'create-nft',
+  'connect',
+  'generate',
+  // 'Faces',
+  'explore',
+  'upload',
   'my-nfts',
-  'dashboard',
+  'listed nfts',
 ];
 
 const Navbar = () => {
