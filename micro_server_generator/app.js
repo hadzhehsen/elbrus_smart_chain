@@ -33,7 +33,7 @@ app.use(
 );
 app.use(
   session({
-    name: 'auth',
+    name: 'userCookie',
     secret: process.env.SECRET,
     saveUninitialized: false,
     resave: false,
@@ -85,7 +85,7 @@ const upload = multer({
 app.get('/clearcookie', async (req, res) => {
   req.session.destroy((err) => {
     if (err) return res.sendStatus(500);
-    res.clearCookie('auth');
+    res.clearCookie('userCookie');
     return res.sendStatus(200);
   });
 });
