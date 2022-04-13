@@ -10,9 +10,11 @@ import ConnectButton from '../ConnectButton';
 import DiscButton from '../DiscButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUsers } from '../../redux/actions/user.action';
+import { asyncDelUser } from '../../redux/thunk/delUser.thunk';
 
 const WalletCard = () => {
   const user = useSelector((store) => store.users);
+  console.log('USEEEEEEERS',user);
   axios.defaults.withCredentials = false;
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -27,15 +29,14 @@ const WalletCard = () => {
     setBalance(localStorage.getItem('balance'));
   }, [userBalance]);
 
-  const disconnect = () => {
+  const disconnect = async () => {
+    dispatch(asyncDelUser(user[user.length - 1]))
     setUser1(null);
     setBalance(null);
     setUserBalance(null);
     localStorage.removeItem('wallet');
     localStorage.removeItem('balance');
-    axios.get('http://localhost:3001/clearcookie', {
-      credentials: 'include',
-    });
+
   };
 
   const connectWalletHandler = () => {

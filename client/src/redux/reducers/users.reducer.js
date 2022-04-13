@@ -4,6 +4,8 @@ const usersReducer = (state = initState().users, action) => {
   switch (type) {
     case 'ADD_USERS':
       return [...state, payload];
+    case 'DEL_USER':
+      return state.filter((el) => el !== payload)
     default:
       return state;
   }
