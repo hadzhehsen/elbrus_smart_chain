@@ -10,9 +10,11 @@ import ConnectButton from '../ConnectButton';
 import DiscButton from '../DiscButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUsers } from '../../redux/actions/user.action';
+import { asyncDelUser } from '../../redux/thunk/delUser.thunk';
 
 const WalletCard = () => {
   const user = useSelector((store) => store.users);
+  console.log('USEEEEEEERS',user);
   axios.defaults.withCredentials = false;
   const [errorMessage, setErrorMessage] = useState(null);
   const [defaultAccount, setDefaultAccount] = useState(null);
@@ -22,20 +24,28 @@ const WalletCard = () => {
   const [balance, setBalance] = useState(null);
   const dispatch = useDispatch();
 
+  // if (window.onbeforeunload) {
+  //   dispatch(asyncDelUser(user[user.length - 1]))
+  //   setUser1(null);
+  //   setBalance(null);
+  //   setUserBalance(null);
+  //   localStorage.removeItem('wallet');
+  //   localStorage.removeItem('balance');
+  // }
+
   useEffect(() => {
     setUser1(localStorage.getItem('wallet'));
     setBalance(localStorage.getItem('balance'));
-  }, [userBalance]);
+  }, [userBalance, defaultAccount]);
 
-  const disconnect = () => {
+  const disconnect = async () => {
+    dispatch(asyncDelUser(user[user.length - 1]))
     setUser1(null);
     setBalance(null);
     setUserBalance(null);
     localStorage.removeItem('wallet');
     localStorage.removeItem('balance');
-    axios.get('http://localhost:3001/clearcookie', {
-      credentials: 'include',
-    });
+
   };
 
   const connectWalletHandler = () => {
@@ -72,13 +82,16 @@ const WalletCard = () => {
       setErrorMessage('Please install MetaMask browser extension to interact');
     }
   };
-  // console.log('-------------', user);
-  // async function disconnect
 
   // update account, will cause component re-render
   const accountChangedHandler = (newAccount) => {
     setDefaultAccount(newAccount);
     getAccountBalance(newAccount.toString());
+    console.log(newAccount.toString());
+    localStorage.setItem('wallet', newAccount.toString());
+    localStorage.setItem('balance', getAccountBalance(newAccount.toString()));
+    // window.location.reload();
+
   };
 
   const getAccountBalance = (account) => {

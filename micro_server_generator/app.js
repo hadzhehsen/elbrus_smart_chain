@@ -38,7 +38,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     store: new FileStore(),
-    cookie: { secure: false, maxAge: 60 * 60 * 1000 },
+    cookie: { secure: false, maxAge: 60 * 60 * 1000, httpOnly: true },
   }),
 );
 
@@ -58,6 +58,7 @@ app.post('/wallet', async (req, res) => {
   const walletString = await req.body.result;
   req.session.wallet = walletString;
   console.log(req.session, '===================== SESSIYA EBAT');
+  res.json(walletString);
   res.end();
 });
 
@@ -81,13 +82,19 @@ const upload = multer({
   dest: path.join(process.env.PWD, 'uploads/'),
 });
 
+app.get('/clearcookie', async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) return res.sendStatus(500);
+    res.clearCookie('userCookie');
+    return res.sendStatus(200);
+  });
+});
+
 app.post('/upload', upload.single('layer1'), async (req, res) => {
   const { filename } = req.file;
   console.log(req.session);
   const { wallet } = req.session;
-  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () =>
-    console.log('File renamed!'),
-  );
+  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () => console.log('File renamed!'));
   // if (req.file.filename !== 'layers.zip') return res.status(403).end();
   if (!fs.existsSync(`./layers-${wallet}`)) fs.mkdirSync(`./layers-${wallet}`);
   const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);
