@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import Lottie from 'react-lottie';
-import Navbar from '../Navbar';
+import Navbar from '../Navbar/index';
 import Particle from '../Particles';
 import * as location from './102030-earth-love-earth-day.json';
 
@@ -28,12 +28,7 @@ export default function Preloader2() {
   return (
     <>
       {!loader ? (
-        <Lottie
-          options={defaultOptions}
-          height={400}
-          width={400}
-          // style={{ position: 'absolute' }}
-        />
+        <Lottie options={defaultOptions} height={400} width={400} style={{}} />
       ) : (
         <Navbar />
       )}

@@ -1,3 +1,63 @@
-.customcard {
-  background: blue;
+.box {
+  box-shadow: 0 0 0.1vw 0.4vw rgb(22, 180, 229),
+    0 0 0.4vw 0.6vw rgb(22, 55, 229), 0 0 4vw 0.4vw #0c109a,
+    inset 0 0 1.5vw 0.4vw rgb(22, 180, 229), inset 0 0 0.4vw rgb(22, 55, 229),
+    inset 0 0 0.5vw 0.2vw #0c109a;
+}
+
+.kek {
+  font-size: 1.5rem;
+  text-shadow: -2px 4px 4px #091243, 0 0 10px #00d0ff, inset 1px 1px 1px white;
+  color: #1fffff;
+  border: 2px solid;
+  border-radius: 4px;
+  background-color: transparent;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 2px 1px 4px rgba(0, 0, 0, 0.3),
+    2px 4px 3px rgba(3, 0, 128, 0.3), 0 0 7px 2px rgba(0, 208, 255, 0.6),
+    inset 0 1px 2px rgba(0, 0, 0, 0.6), inset 2px 1px 4px rgba(0, 0, 0, 0.3),
+    inset 2px 4px 3px rgba(3, 0, 128, 0.3),
+    inset 0 0 7px 2px rgba(0, 208, 255, 0.6);
+  animation: flickering 5s infinite;
+}
+
+@keyframes flickering {
+  0% {
+    border-color: transparent;
+    opacity: 0.2;
+  }
+
+  2% {
+    border-color: #1fffff;
+    opacity: 1;
+  }
+
+  4% {
+    border-color: transparent;
+    opacity: 0.2;
+  }
+
+  8% {
+    border-color: #1fffff;
+    opacity: 1;
+  }
+
+  28% {
+    border-color: #1fffff;
+    opacity: 1;
+  }
+
+  30% {
+    border-color: transparent;
+    opacity: 0.2;
+  }
+
+  36% {
+    border-color: #1fffff;
+    opacity: 1;
+  }
+
+  100% {
+    border-color: #1fffff;
+    opacity: 1;
+  }
 }

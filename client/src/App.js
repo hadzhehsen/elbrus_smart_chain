@@ -12,11 +12,12 @@ import HeaderPage from './components/NFT/UI/header/HeaderPage';
 import ResellNFT from './components/NFT/ResselNftPage';
 import './App.css';
 import Particle from './components/Particles';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/';
+import { StyledEngineProvider } from '@mui/material';
 
 function App() {
   return (
-    <>
+    <StyledEngineProvider injectFirst>
       <div className='App'>
         <Particle />
         <Preloader2 />
@@ -32,7 +33,7 @@ function App() {
           <Route path='/resell-nft' element={<ResellNFT />} />
         </Routes>
       </div>
-    </>
+    </StyledEngineProvider>
   );
 }
 

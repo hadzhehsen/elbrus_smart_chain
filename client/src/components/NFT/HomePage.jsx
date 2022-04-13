@@ -97,19 +97,39 @@ export default function HomePage() {
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className='px-20 py-10 text-3xl'>No items in marketplace</h1>;
   return (
-    <>
+    <div
+      style={
+        {
+          // display: 'flex',
+          // alignItems: 'center',
+          // justifyContent: 'center',
+        }
+      }
+    >
       <Carousel
         interval={10000000}
-        style={
-          {
-            // width: 1000,
-            // height: 300,
-          }
-        }
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          // width: 1000,
+          // height: 300,
+        }}
       >
         {nfts.map((nft) => (
-          <Carousel.Item key={nft.tokenId}>
-            <div className='' style={{ padding: 75 }}>
+          <Carousel.Item
+            key={nft.tokenId}
+            style={{ justifyContent: 'center', alignItems: 'center' }}
+          >
+            <div
+              className=''
+              style={{
+                padding: 75,
+                // justifyContent: 'center',
+                // alignItems: 'center',
+                textAlign: 'center',
+              }}
+            >
               <Card
                 className='px-5'
                 key={nft.tokenId}
@@ -121,6 +141,8 @@ export default function HomePage() {
                   flexDirection: 'row',
                   backgroundColor: 'rgba(255, 255, 255, 0.01)', //145,46,84
                   backdropFilter: 'blur(1px)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <div className='px-5' style={{ maxWidth: 400, maxHeight: 400 }}>
@@ -158,31 +180,6 @@ export default function HomePage() {
           </Carousel.Item>
         ))}
       </Carousel>
-    </>
-
-    // karusel +- rabotaet
-    // <div style={{ display: 'flex', justifyContent: 'center' }}>
-    //   <Carousel
-    //     style={
-    //       {
-    //         // alignItems: 'center',
-    //       }
-    //     }
-    //   >
-    //     {nfts.map((el) => (
-    //       <Carousel.Item style={{}}>
-    //         <img
-    //           className='d-block'
-    //           alt='kek'
-    //           src={el.image}
-    //           style={{ width: 400, height: 400 }}
-    //         />
-    //         <Carousel.Caption>
-    //           <h5 style={{ color: 'blue' }}>{el.name}</h5>
-    //         </Carousel.Caption>
-    //       </Carousel.Item>
-    //     ))}
-    //   </Carousel>
-    // </div>
+    </div>
   );
 }
