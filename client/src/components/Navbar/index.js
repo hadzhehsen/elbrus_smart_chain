@@ -23,7 +23,7 @@ const pages = [
   'explore',
   'upload',
   'my-nfts',
-  'listed nfts',
+  'listed-nfts',
 ];
 
 const Navbar = () => {
