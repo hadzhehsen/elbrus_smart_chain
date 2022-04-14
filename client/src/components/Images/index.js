@@ -5,11 +5,13 @@ import { asyncAddPhoto } from '../../redux/thunk/addFoto.thunk';
 // import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../NFT/Styles.css';
+import Loader2 from '../Loader2';
 
 export default function Images() {
   const [form, setForm] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loader, setLoader] = useState('');
 
   const formHandler = (e) => {
     setForm(e.target.files);
@@ -21,15 +23,22 @@ export default function Images() {
     for (let i = 0; i < form.length; i++) {
       formData.append(`layer1`, form[i]);
       formData.append(`wallet`, window.ethereum._state.accounts[0]);
+      setLoader('true');
     }
     dispatch(asyncAddPhoto(formData));
     setTimeout(() => {
-      navigate('/create-nft');
-    }, 3000);
-
-    setForm(null);
+      setForm(null);
+      setLoader('');
+      navigate('/upload');
+    }, 10000);
   };
-
+  if (loader === 'true')
+    return (
+      <>
+        <h1>Загрузка</h1>
+        <Loader2 />
+      </>
+    );
   return (
     <>
       <Form.Group controlId='formFile' className='col-md-5 mx-auto'>

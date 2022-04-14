@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import Lottie from 'react-lottie';
+import Footer from '../Footer';
 import Navbar from '../Navbar/index';
 import Particle from '../Particles';
 import * as location from './102030-earth-love-earth-day.json';
@@ -30,7 +31,9 @@ export default function Preloader2() {
       {!loader ? (
         <Lottie options={defaultOptions} height={400} width={400} style={{}} />
       ) : (
-        <Navbar />
+        <>
+          <Navbar />
+        </>
       )}
     </>
   );

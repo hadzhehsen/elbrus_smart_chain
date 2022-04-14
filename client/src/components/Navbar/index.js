@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import bifrost_logo from '../../bifrost_logo.png';
 import './Styles.css';
+import Footer from '../Footer';
 
 const pages = [
   'connect',
