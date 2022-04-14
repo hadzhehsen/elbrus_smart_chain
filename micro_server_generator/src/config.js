@@ -1,6 +1,7 @@
 const { MODE } = require('./blendMode');
 
-const description = 'This is the description of your NFT project, remember to replace this';
+const description =
+  'This is the description of your NFT project, remember to replace this';
 const baseUri = 'https://elbrussmartchain/nft';
 
 const layerConfigurations = [
@@ -13,7 +14,7 @@ const layerConfigurations = [
       { name: 'layer4' },
       { name: 'layer5' },
       { name: 'layer6' },
-      // { name: 'layer7' },
+      { name: 'layer7' },
       // { name: 'layer8' },
       // { name: 'layer9' },
     ],

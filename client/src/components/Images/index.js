@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { asyncAddPhoto } from '../../redux/thunk/addFoto.thunk';
-import axios from 'axios';
+// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../NFT/Styles.css';
 
 export default function Images() {
   const [form, setForm] = useState(null);
@@ -32,16 +33,17 @@ export default function Images() {
   return (
     <>
       <Form.Group controlId='formFile' className='col-md-5 mx-auto'>
-        <Form.Label>Вставь свой архив</Form.Label>
+        <Form.Label>Insert your layers in .zip</Form.Label>
         <Form.Control
           type='file'
           name='layer1'
           accept='application/zip'
           onChange={formHandler}
         />
-        <Form.Label>Нажми чтобы отправить</Form.Label>
-        <Form.Control type='submit' onClick={subHandler} />
       </Form.Group>
+      <button className='kek m-5' type='submit' onClick={subHandler}>
+        Do magic
+      </button>
     </>
   );
 }

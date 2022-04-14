@@ -73,7 +73,7 @@ export default function DashBoardPage() {
               width: 300,
               height: 400,
               padding: 8,
-              margin: 10,
+              margin: 12,
               color: 'white',
               backgroundColor: 'rgba(255, 255, 255, 0.01)',
               backdropFilter: 'blur(5px)',
@@ -85,13 +85,12 @@ export default function DashBoardPage() {
             <Card.Img
               src={nft.image}
               className=''
-              variant='top'
               style={{ width: 275, height: 275 }}
               alt='kartinka'
             />
-            {/* <div className=''> */}
-            <p className=''>New price - {nft.price} Eth</p>
-            {/* </div> */}
+            <p className='' style={{ marginTop: 50 }}>
+              New price - {nft.price} Eth
+            </p>
           </Card>
         ))}
       </div>

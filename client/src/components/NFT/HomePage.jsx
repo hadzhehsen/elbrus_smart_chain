@@ -3,19 +3,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { marketplaceAddress } from '../../config';
-// import NFTMarketplace from '../../artifacts/contracts/NFTMarket.sol/NFTMarketplace.json'
 import NFTMarketplace from '../../NFTMarketplace.json';
-import {
-  Button,
-  Card,
-  CardGroup,
-  Carousel,
-  Col,
-  Container,
-  Row,
-} from 'react-bootstrap';
-import styles from './HomePage.module.css';
-import { flexbox } from '@mui/system';
+import { Button, Card, Carousel } from 'react-bootstrap';
 
 export default function HomePage() {
   const [nfts, setNfts] = useState([]);
@@ -52,10 +41,8 @@ export default function HomePage() {
         //   mode: 'no-cors',
         //   body: JSON.stringify(tokenUri),
         // }).then((info) => console.log(info));
-        // const response = await
-        // console.log(meta);
+
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        // console.log(meta);
         let item = {
           price,
           tokenId: i.tokenId.toNumber(),
@@ -91,29 +78,18 @@ export default function HomePage() {
     await transaction.wait();
     loadNFTs();
   }
-  // console.log(nfts);
 
-  // console.log(loadingState);
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className='px-20 py-10 text-3xl'>No items in marketplace</h1>;
   return (
-    <div
-      style={
-        {
-          // display: 'flex',
-          // alignItems: 'center',
-          // justifyContent: 'center',
-        }
-      }
-    >
+    <div>
       <Carousel
-        interval={10000000}
+        interval={3000}
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          // width: 1000,
-          // height: 300,
+          width: 1000,
         }}
       >
         {nfts.map((nft) => (
@@ -122,11 +98,8 @@ export default function HomePage() {
             style={{ justifyContent: 'center', alignItems: 'center' }}
           >
             <div
-              className=''
               style={{
-                padding: 75,
-                // justifyContent: 'center',
-                // alignItems: 'center',
+                padding: 50,
                 textAlign: 'center',
               }}
             >
@@ -134,11 +107,10 @@ export default function HomePage() {
                 className='px-5'
                 key={nft.tokenId}
                 style={{
-                  opacity: 0.9,
-                  // width: 675,
+                  // opacity: 0.9,
                   color: 'white',
                   gap: 20,
-                  flexDirection: 'row',
+                  // flexDirection: 'row',
                   backgroundColor: 'rgba(255, 255, 255, 0.01)', //145,46,84
                   backdropFilter: 'blur(1px)',
                   alignItems: 'center',
@@ -147,33 +119,29 @@ export default function HomePage() {
               >
                 <div className='px-5' style={{ maxWidth: 400, maxHeight: 400 }}>
                   <Card.Img
-                    // className='w-100'
+                    className='kekrousel'
                     src={nft.image}
                     style={{
-                      maxWidth: 250,
-                      minWidth: 250,
-                      maxHeight: 250,
-                      minHeight: 250,
+                      minWidth: 300,
+                      minHeight: 300,
                     }}
-                    variant='top'
                     alt={`imageNumber${nft.tokenId}`}
                   />
                 </div>
                 <div className=''>
-                  <Card.Title>Title {nft.name}</Card.Title>
-                  <Card.Text style={{}}>
-                    Description {nft.description}
-                  </Card.Text>
-                  <Card.Text style={{}}>Price {nft.price} MATIC</Card.Text>
-                  <Card.Text style={{}}>Owner: {nft.owner}</Card.Text>
-                  <Card.Text style={{}}>Who selling: {nft.seller}</Card.Text>
-                  <Button
-                    variant='light'
+                  <Card.Title>{nft.name}</Card.Title>
+                  <Card.Text>{nft.description}</Card.Text>
+                  <Card.Text>Price: {nft.price} ETH</Card.Text>
+                  <Card.Text>Owner: {nft.owner}</Card.Text>
+                  <Card.Text>Who selling: {nft.seller}</Card.Text>
+                  <button
+                    // variant='light'
+                    className='kek'
                     style={{ borderColor: 'black' }}
                     onClick={() => buyNft(nft)}
                   >
                     Buy
-                  </Button>
+                  </button>
                 </div>
               </Card>
             </div>

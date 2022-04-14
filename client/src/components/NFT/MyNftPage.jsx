@@ -80,7 +80,7 @@ export default function MyNftPage() {
               width: 300,
               height: 400,
               padding: 8,
-              margin: 10,
+              margin: 12,
               color: 'white',
               backgroundColor: 'rgba(255, 255, 255, 0.01)',
               backdropFilter: 'blur(5px)',
@@ -102,20 +102,14 @@ export default function MyNftPage() {
           >
             <Card.Img
               src={nft.image}
-              variant='top'
               alt='kartinka'
               style={{ width: 275, height: 275 }}
             />
             {/* <Card.Body className=''> */}
             <p className=''>Last price - {nft.price} Eth</p>
-            <button
-              className='kek'
-              // variant='light'
-              onClick={() => listNFT(nft)}
-            >
-              Put on sell
+            <button className='kek' onClick={() => listNFT(nft)}>
+              Sell
             </button>
-            {/* </Card.Body> */}
           </Card>
         ))}
       </div>

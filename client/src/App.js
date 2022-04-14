@@ -14,6 +14,7 @@ import './App.css';
 import Particle from './components/Particles';
 import Navbar from './components/Navbar/';
 import { StyledEngineProvider } from '@mui/material';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Particle />
         <Preloader2 />
         <Routes>
-          <Route path='/' element={<Home />} />
+          {/* <Route path='/' element={<Home />} /> */}
           <Route path='/generate' element={<Images />} />
           {/* <Route path='/faces' element={<Faces />} /> */}
           <Route path='/connect' element={<Connect />} />
@@ -32,6 +33,7 @@ function App() {
           <Route path='/listed-nfts' element={<DashBoardPage />} />
           <Route path='/resell-nft' element={<ResellNFT />} />
         </Routes>
+        <Footer />
       </div>
     </StyledEngineProvider>
   );
