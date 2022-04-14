@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.myWrapper {
+  flex: auto;
+}
+
+.myFooter {
+  /* color: #03e9f4; */
+  position: relative;
+  /* padding: 12px 36px; */
+  margin: 10px 5px;
+  color: #03e9f4;
+  font-size: 0.98em;
+  letter-spacing: 2px;
+  font-family: 'Roboto';
+  cursor: pointer;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.kekk {
+  color: #03e9f4;
+  text-decoration: none;
+}
+.kekk:hover {
+  color: #03e9f4;
+}

@@ -1,27 +1,22 @@
 import * as React from 'react';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
+import bifrost_logo from '../../bifrost_logo.png';
+import './Styles.css';
+import Footer from '../Footer';
 
 const pages = [
-  'Connect',
-  'Images',
-  'Faces',
-  'homeNFT',
-  'create-nft',
+  'connect',
+  'generate',
+  // 'Faces',
+  'explore',
+  'upload',
   'my-nfts',
-  'dashboard',
+  'listed-nfts',
 ];
 
 const Navbar = () => {
@@ -44,19 +39,35 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position='static' style={{ backgroundColor: 'black' }}>
-      <Container maxWidth='xl'>
-        <Toolbar disableGutters>
-          <Typography
-            variant='h6'
-            noWrap
-            component='div'
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            <AcUnitIcon onClick={homeNav} style={{ fontSize: '100px' }} />
-          </Typography>
+    <div style={{}}>
+      <AppBar
+        position='static'
+        sx={{
+          backgroundColor: 'black',
+          displayPrint: 'flex',
+          alignSelf: 'center',
+          justifyContent: 'space-between',
+          marginY: 1,
+          marginBottom: 4,
+        }}
+      >
+        <Container maxWidth='xl'>
+          <Toolbar disableGutters>
+            <Typography
+              variant='h6'
+              noWrap
+              component='div'
+              sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            >
+              <img
+                src={bifrost_logo}
+                onClick={homeNav}
+                style={{ width: 65, height: 65 }}
+                alt='logo'
+              />
+            </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
               aria-label='account of current user'
@@ -99,27 +110,31 @@ const Navbar = () => {
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          </Typography> */}
+            {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> */}
             {pages.map((page) => (
               <Button
                 key={page}
                 name={page}
                 onClick={navigateHandler}
-                sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'block',
-                  fontSize: '20px',
-                }}
+                className='myNavButton'
+                // sx={{
+                //   my: 2,
+                //   color: 'white',
+                //   display: 'block',
+                //   fontSize: '30px',
+                //   fontFamily: 'Roboto Mono, monospace',
+                //   marginX: 2,
+                // }}
               >
                 {page}
               </Button>
             ))}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            {/* </Box> */}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
   );
 };
 export default Navbar;

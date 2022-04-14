@@ -10,6 +10,7 @@ import NFTMarketplace from '../../NFTMarketplace.json';
 import { Button, Card, Form, Image } from 'react-bootstrap';
 import styles from './CreateNftPage.module.css';
 import Loader2 from '../Loader2';
+import './Styles.css';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -20,7 +21,7 @@ export default function CreateNFT() {
     name: '',
     description: '',
   });
-  const [loader, setLoader] = useState('')
+  const [loader, setLoader] = useState('');
 
   const navigate = useNavigate();
   // const router = useRouter()
@@ -57,7 +58,7 @@ export default function CreateNFT() {
   }
 
   async function listNFTForSale() {
-    setLoader(true)
+    setLoader(true);
     const url = await uploadToIPFS();
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -81,7 +82,7 @@ export default function CreateNFT() {
     });
     await transaction.wait();
     navigate('/homeNFT');
-    setLoader('')
+    setLoader('');
   }
 
   return (
@@ -136,10 +137,10 @@ export default function CreateNFT() {
           />
         )}
       </Form.Group>
-      <Button variant='light' onClick={listNFTForSale} className='mx-auto my-1'>
+      <button onClick={listNFTForSale} className='mx-auto my-1 kek'>
         Create NFT
-      </Button>
-      {loader !== '' ? (<Loader2/>) : ('')}
+      </button>
+      {loader !== '' ? <Loader2 /> : ''}
     </Form>
   );
 }

@@ -4,11 +4,11 @@ import { ethers } from 'ethers';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
-
+import './Styles.css';
 import { marketplaceAddress } from '../../config';
 
 import NFTMarketplace from '../../NFTMarketplace.json';
-import { Card } from 'react-bootstrap';
+import { Card, Form } from 'react-bootstrap';
 
 export default function ResellNFT() {
   const [formInput, updateFormInput] = useState({ price: '', image: '' });
@@ -55,30 +55,57 @@ export default function ResellNFT() {
   }
 
   return (
-    <Card className=''>
-      <Card.Body className=''>
-        <input
-          placeholder='Asset Price in Eth'
-          className='mt-2 border rounded p-4'
-          onChange={(e) =>
-            updateFormInput({ ...formInput, price: e.target.value })
-          }
-        />
-        {image && (
-          <img
-            className='rounded mt-4'
-            width='350'
-            src={image}
-            alt='kartinka'
-          />
-        )}
-        <button
-          onClick={listNFTForSale}
-          className='font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg'
+    <div
+      className='container'
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 'auto',
+      }}
+    >
+      <div
+        className=''
+        style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}
+      >
+        <Card
+          className='box'
+          style={{
+            width: 300,
+            height: 400,
+            padding: 8,
+            margin: 10,
+            color: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.01)',
+            backdropFilter: 'blur(5px)',
+            borderColor: 'white',
+            alignItems: 'center',
+            border: 'transparent',
+          }}
         >
-          List NFT
-        </button>
-      </Card.Body>
-    </Card>
+          {image && <img className='' width='250' src={image} alt='kartinka' />}
+          <Card.Body
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignContent: 'center',
+              flexDirection: 'column',
+              gap: 10,
+            }}
+          >
+            <Form.Control
+              placeholder='Asset Price in Eth'
+              className=''
+              onChange={(e) =>
+                updateFormInput({ ...formInput, price: e.target.value })
+              }
+            />
+            <button onClick={listNFTForSale} className='kek'>
+              List NFT
+            </button>
+          </Card.Body>
+        </Card>
+      </div>
+    </div>
   );
 }

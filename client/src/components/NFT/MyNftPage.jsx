@@ -6,6 +6,8 @@ import Web3Modal from 'web3modal';
 import { useNavigate } from 'react-router-dom';
 import { marketplaceAddress } from '../../config';
 import NFTMarketplace from '../../NFTMarketplace.json';
+import { Button, Card } from 'react-bootstrap';
+import './Styles.css';
 
 export default function MyNftPage() {
   const [nfts, setNfts] = useState([]);
@@ -57,27 +59,61 @@ export default function MyNftPage() {
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className='py-10 px-20 text-3xl'>No NFTs owned</h1>;
   return (
-    <div className='flex justify-center'>
-      <div className='p-4'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4'>
-          {nfts.map((nft, i) => (
-            <div key={i} className='border shadow rounded-xl overflow-hidden'>
-              <img src={nft.image} className='rounded' alt='kartinka' />
-              <div className='p-4 bg-black'>
-                <p className='text-2xl font-bold text-white'>
-                  Price - {nft.price} Eth
-                </p>
-                <button
-                  className='mt-4 w-full bg-pink-500 text-white font-bold py-2 px-12 rounded'
-                  onClick={() => listNFT(nft)}
-                >
-                  List
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div
+      className='container'
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 'auto',
+      }}
+    >
+      <div
+        className=''
+        style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}
+      >
+        {nfts.map((nft, i) => (
+          <Card
+            className='box'
+            key={i}
+            style={{
+              width: 300,
+              height: 400,
+              padding: 8,
+              margin: 12,
+              color: 'white',
+              backgroundColor: 'rgba(255, 255, 255, 0.01)',
+              backdropFilter: 'blur(5px)',
+              borderColor: 'white',
+              alignItems: 'center',
+              border: 'transparent',
+            }}
+            // style={{
+            //   opacity: 0.9,
+            //   // width: 675,
+            //   color: 'white',
+            //   gap: 20,
+            //   flexDirection: 'row',
+            //   backgroundColor: 'rgba(255, 255, 255, 0.01)', //145,46,84
+            //   backdropFilter: 'blur(1px)',
+            //   alignItems: 'center',
+            //   justifyContent: 'center',
+            // }}
+          >
+            <Card.Img
+              src={nft.image}
+              alt='kartinka'
+              style={{ width: 275, height: 275 }}
+            />
+            {/* <Card.Body className=''> */}
+            <p className=''>Last price - {nft.price} Eth</p>
+            <button className='kek' onClick={() => listNFT(nft)}>
+              Sell
+            </button>
+          </Card>
+        ))}
       </div>
     </div>
+    // </div>
   );
 }

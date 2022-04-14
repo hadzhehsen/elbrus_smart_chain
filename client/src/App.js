@@ -12,27 +12,30 @@ import HeaderPage from './components/NFT/UI/header/HeaderPage';
 import ResellNFT from './components/NFT/ResselNftPage';
 import './App.css';
 import Particle from './components/Particles';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/';
+import { StyledEngineProvider } from '@mui/material';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <>
+    <StyledEngineProvider injectFirst>
       <div className='App'>
         <Particle />
         <Preloader2 />
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/images' element={<Images />} />
-          <Route path='/faces' element={<Faces />} />
+          {/* <Route path='/' element={<Home />} /> */}
+          <Route path='/generate' element={<Images />} />
+          {/* <Route path='/faces' element={<Faces />} /> */}
           <Route path='/connect' element={<Connect />} />
-          <Route path='/homeNFT' element={<HomePage />} />
-          <Route path='/create-nft' element={<CreateNFT />} />
+          <Route path='/explore' element={<HomePage />} />
+          <Route path='/upload' element={<CreateNFT />} />
           <Route path='/my-nfts' element={<MyNftPage />} />
-          <Route path='/dashboard' element={<DashBoardPage />} />
+          <Route path='/listed-nfts' element={<DashBoardPage />} />
           <Route path='/resell-nft' element={<ResellNFT />} />
         </Routes>
+        <Footer />
       </div>
-    </>
+    </StyledEngineProvider>
   );
 }
 
