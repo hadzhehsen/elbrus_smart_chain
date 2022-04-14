@@ -1,8 +1,8 @@
 const { startCreating, buildSetup } = require('./src/main');
 
-const start = (wallet) => {
+const start = async (wallet) => {
   buildSetup(wallet);
-  startCreating(wallet);
+  await startCreating(wallet);
 };
 
 module.exports = start;

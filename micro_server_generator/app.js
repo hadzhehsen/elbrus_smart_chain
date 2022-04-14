@@ -4,6 +4,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { readDirDeep, readDirDeepSync } = require('read-dir-deep');
 const morgan = require('morgan');
 const extract = require('extract-zip');
 const cookieParser = require('cookie-parser');
@@ -90,91 +91,81 @@ app.get('/clearcookie', async (req, res) => {
   });
 });
 
-app.post('/upload', upload.single('layer1'), async (req, res) => {
+app.post('/upload', upload.single('layer1'), async (req, res, next) => {
   const { filename } = req.file;
-  console.log(req.session);
   const { wallet } = req.session;
-  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () =>
-    console.log('File renamed!'),
-  );
-  // if (req.file.filename !== 'layers.zip') return res.status(403).end();
-  if (!fs.existsSync(`./layers-${wallet}`)) fs.mkdirSync(`./layers-${wallet}`);
+  // -----------------------------------------------------------//
+  fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () => console.log('File renamed!')); // rename script for user archive
+  if (!fs.existsSync(`./layers-${wallet}`)) {
+    fs.mkdirSync(`./layers-${wallet}`);
+    console.log(`${wallet} - DIRECTORY 'layers-${wallet}' CREATED`);
+  }
+  // -----------------------------------------------------------//
+  // const dirrectoryContents = await readDirDeep(`${process.env.PWD}/layers-${wallet}`);
+  // console.log(dirrectoryContents, '- LAYERS CONTENTS');
+  // const regularExpression = /\b(\/layer\d{1,7})\b[\s\S]*(?:#\d{2}.png)$/gm;
+  // dirrectoryContents.forEach((el) => {
+  //   console.log(el);
+  //   if (!regularExpression.test(el)) return res.sendStatus(404);
+  // });
+  // -----------------------------------------------------------//
   const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);
   const archive = archiver('zip', {
     zlib: { level: -1 }, // Sets the compression level.
   });
+  // -----------------------------------------------------------//
   async function extractor(_wallet) {
     try {
       await extract(`./uploads/layers-${_wallet}.zip`, {
         dir: `${process.env.PWD}/layers-${_wallet}`,
       });
+      console.log(`${wallet} - FILES EXTRACTED`);
     } catch (error) {
       console.log(error);
     }
   }
-  await extractor(wallet);
-  // fs.readdir(`./layers-${wallet}`, (err, directories) => {
-  //   if (err) console.error(err);
-  //   if (directories.length !== 6) {
-  //     res.status(503).json({
-  //       message: 'Неверная конфигурация архива, неверное кол-во папок',
-  //     });
-  //   }
-  //   if (directories[0] !== 'layer1') {
-  //     return res.status(503).json({
-  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
-  //     });
-  //   }
-  //   if (directories[1] !== 'layer2') {
-  //     return res.status(503).json({
-  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
-  //     });
-  //   }
-  //   if (directories[2] !== 'layer3') {
-  //     return res.status(503).json({
-  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
-  //     });
-  //   }
-  //   if (directories[3] !== 'layer4') {
-  //     return res.status(503).json({
-  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
-  //     });
-  //   }
-  //   if (directories[4] !== 'layer5') {
-  //     return res.status(503).json({
-  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
-  //     });
-  //   }
-  //   if (directories[5] !== 'layer6') {
-  //     return res.status(503).json({
-  //       message: 'Неверная конфигурация архива, создайте папки по шаблону',
-  //     });
-  //   }
-  // });
-  start(wallet);
+  await extractor(wallet); // Extraction script initialised.
+  // -----------------------------------------------------------//
   if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) {
     fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
+    console.log(`${wallet} - 'layers.zip' ARCHIVE DELETED`);
   }
-  archive.on('error', (err) => {
+  // -----------------------------------------------------------//
+  await start(wallet); // Main script initialisation.
+  // -----------------------------------------------------------//
+  archive.on('error', (err) => { // Archiver error check.
     console.log(err);
     throw err;
   });
-  const fileName = `build-${wallet}.zip`;
-  const filePath = `./build-${wallet}.zip`;
+  const fileName = `build-${wallet}.zip`; // Final zip name.
+  const filePath = `./build-${wallet}.zip`; // Final zip path.
   archive.pipe(output);
-  await archive.directory(`./build-${wallet}`, false).finalize();
+  console.log(`${wallet} - ARCHIVER PIPE OPENED`);
+  await archive
+    .directory(`./build-${wallet}`, false) // Makes a zip out of users build dir.
+    .finalize(); // Finalize zip.
+  // -----------------------------------------------------------//
   output.on('close', () => {
-    console.log('Pipe closed!');
+    console.log(`${wallet} - ARCHIVER PIPE CLOSED`);
 
     if (fs.existsSync(`./layers-${wallet}`)) {
       fs.rmSync(`./layers-${wallet}`, { recursive: true, force: true });
+      console.log(`${wallet} - DELETED LAYERS DIRRECTORY`);
     }
-    res.download(filePath, fileName);
-    console.log(`${wallet} - DELETED LAYERS DIRRECTORY`);
+
     if (fs.existsSync(`./build-${wallet}`)) {
       fs.rmSync(`./build-${wallet}`, { recursive: true, force: true });
+      console.log(`${wallet} - DELETED BUILD DIRRECTORY`);
     }
-    console.log(`${wallet} - DELETED BUILD DIRRECTORY`);
+
+    console.log(`${wallet} - FILES SENT`);
+    return res.download(filePath, fileName, (err) => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
+      fs.unlink(`./build-${wallet}.zip`, () => console.log(`${wallet} - BUILT ARCHIVE WAS DELETED!`));
+    });
   });
 });
 
