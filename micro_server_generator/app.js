@@ -39,7 +39,7 @@ app.use(
     saveUninitialized: false,
     resave: false,
     store: new FileStore(),
-    cookie: { secure: false, maxAge: 60 * 60 * 1000 },
+    cookie: { secure: false, maxAge: 0 },
   }),
 );
 
@@ -82,29 +82,21 @@ const upload = multer({
   dest: path.join(process.env.PWD, 'uploads/'),
 });
 
-app.post('/upload', upload.single('layer1'), async (req, res, next) => {
+app.post('/upload', mw.checkAuth, upload.single('layer1'), async (req, res, next) => {
   const { filename } = req.file;
   const { wallet } = req.session;
-  // -----------------------------------------------------------//
+  // ----------------------------------------------------------- //
   fs.rename(`./uploads/${filename}`, `./uploads/layers-${wallet}.zip`, () => console.log('File renamed!')); // rename script for user archive
   if (!fs.existsSync(`./layers-${wallet}`)) {
     fs.mkdirSync(`./layers-${wallet}`);
     console.log(`${wallet} - DIRECTORY 'layers-${wallet}' CREATED`);
   }
-  // -----------------------------------------------------------//
-  // const dirrectoryContents = await readDirDeep(`${process.env.PWD}/layers-${wallet}`);
-  // console.log(dirrectoryContents, '- LAYERS CONTENTS');
-  // const regularExpression = /\b(\/layer\d{1,7})\b[\s\S]*(?:#\d{2}.png)$/gm;
-  // dirrectoryContents.forEach((el) => {
-  //   console.log(el);
-  //   if (!regularExpression.test(el)) return res.sendStatus(404);
-  // });
-  // -----------------------------------------------------------//
+  // ----------------------------------------------------------- //
   const output = fs.createWriteStream(`${process.env.PWD}/build-${wallet}.zip`);
   const archive = archiver('zip', {
     zlib: { level: -1 }, // Sets the compression level.
   });
-  // -----------------------------------------------------------//
+  // ----------------------------------------------------------- //
   async function extractor(_wallet) {
     try {
       await extract(`./uploads/layers-${_wallet}.zip`, {
@@ -116,14 +108,33 @@ app.post('/upload', upload.single('layer1'), async (req, res, next) => {
     }
   }
   await extractor(wallet); // Extraction script initialised.
-  // -----------------------------------------------------------//
+  const dirrectoryContents = await readDirDeep(`${process.env.PWD}/layers-${wallet}`);
+  const regularExpression = /(\/layer\d{1,7})\b[\s\S]*(?:#\d{2}.png)$/gm;
+  console.log(dirrectoryContents, '- LAYERS CONTENTS');
+  console.log(`${process.env.PWD}/layers-${wallet} ========================== KEK`);
+  dirrectoryContents.forEach((el) => {
+    // console.log(el);
+    if (!regularExpression.test(el)) {
+      console.log('WRONG ELEMENT -', el);
+      if (fs.existsSync(`./layers-${wallet}`)) {
+        fs.rmSync(`./layers-${wallet}`, { recursive: true, force: true });
+        console.log(`${wallet} - DELETED LAYERS DIRRECTORY`);
+      }
+      if (fs.existsSync(`./build-${wallet}.zip`)) {
+        fs.unlink(`./build-${wallet}.zip`, () => console.log(`${wallet} - BUILT ARCHIVE WAS DELETED!`));
+      }
+      return res.end();
+    }
+    next();
+  });
+  // ----------------------------------------------------------- //
   if (fs.existsSync(`./uploads/layers-${wallet}.zip`)) {
     fs.unlinkSync(`./uploads/layers-${wallet}.zip`);
     console.log(`${wallet} - 'layers.zip' ARCHIVE DELETED`);
   }
-  // -----------------------------------------------------------//
+  // ----------------------------------------------------------- //
   await start(wallet); // Main script initialisation.
-  // -----------------------------------------------------------//
+  // ----------------------------------------------------------- //
   archive.on('error', (err) => { // Archiver error check.
     console.log(err);
     throw err;
