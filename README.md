@@ -9,13 +9,13 @@ Backend: Node, Express;
 
 Команда 👥
 
-Maxim Mukhanov(me) - fullstack javascript developer - github link: https://github.com/MaximMukhanov
+Dzhihad Hadzh Hussein - teamlead, fullstack javascript developer - github link: https://github.com/hadzhehsen
 
-Sergei Smirnov - frontend javascript developer - github link: https://github.com/111398
+Maxim Mukhanov - fullstack javascript developer - github link: https://github.com/MaximMukhanov
 
-Dzhihad Hadzh Hussein - frontend javascript developer - github link: https://github.com/hadzhehsen
+Sergei Smirnov - fullstack javascript developer - github link: https://github.com/111398
 
-Ilya Chaplin - frontend javascript developer - github link: https://github.com/ichaplin85
+Ilya Chaplin - fullstack javascript developer - github link: https://github.com/ichaplin85
 
 Мой вклад 💎
 
